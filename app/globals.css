@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-white text-black;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+  }
+
+  h1 {
+    @apply text-4xl font-bold mb-4 uppercase;
+    font-family: 'Arial Black', Arial, sans-serif;
+  }
+
+  h2 {
+    @apply text-3xl font-bold mb-3 uppercase;
+    font-family: 'Arial Black', Arial, sans-serif;
+  }
+
+  h3 {
+    @apply text-xl font-bold mb-2 uppercase;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  a {
+    @apply no-underline hover:underline;
+  }
+}
+
+@layer components {
+  .container-glasbak {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply bg-glasbak-zwart text-glasbak-geel px-8 py-3 border-2 border-glasbak-zwart uppercase font-bold inline-block hover:bg-glasbak-geel hover:text-glasbak-zwart transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-glasbak-zwart px-8 py-3 border-2 border-glasbak-zwart uppercase font-bold inline-block hover:bg-glasbak-zwart hover:text-glasbak-geel transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white p-4 hover:shadow-lg transition-shadow duration-200;
+  }
+
+  .tag {
+    @apply inline-block px-3 py-1 bg-glasbak-geel text-glasbak-zwart uppercase text-xs font-bold;
+  }
+
+  .search-bar {
+    @apply w-full px-4 py-3 border-2 border-glasbak-zwart focus:outline-none focus:border-glasbak-geel;
+  }
+}
