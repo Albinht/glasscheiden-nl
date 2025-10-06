@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wieldiameter converter voor truckmodelbouw - Converteer wielgroottes tussen verschillende meeteenheden en schalen">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Wieldiameter Converter - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>wieldiameter</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Wieldiameter Converter voor Truckmodellen</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Technische Tools | December 2024
+                </div>
+
+                <p>Correcte wielafmetingen zijn cruciaal voor het realisme van uw truckmodel. Deze professionele converter helpt u bij het omrekenen van wieldiameters tussen verschillende meeteenheden, bandenmaten en modelschalen. Perfect voor het selecteren van de juiste wielen voor uw schaalmodel.</p>
+
+                <h2>Het Belang van Juiste Wielafmetingen</h2>
+                <p>Wielen bepalen in grote mate het realistische uiterlijk van een truckmodel. Te grote of te kleine wielen verstoren de proportions en maken het model ongeloofwaardig. Bij het combineren van verschillende merken of het vervangen van wielen is exacte maatvoering essentieel voor een professioneel resultaat.</p>
+
+                <div class="tool-container">
+                    <h2>Wieldiameter Calculator</h2>
+                    <div class="tool-form">
+                        <div class="form-group">
+                            <label for="conversion-type">Conversie Type:</label>
+                            <select id="conversion-type" onchange="toggleConversionMode()">
+                                <option value="tire-code">Bandencode naar Diameter</option>
+                                <option value="diameter-convert">Diameter Conversie</option>
+                                <option value="scale-wheel">Schaal Conversie</option>
+                                <option value="comparison">Vergelijking Tool</option>
+                            </select>
+                        </div>
+
+                        <div id="tire-code-section">
+                            <h3>Bandencode Decoder</h3>
+                            <p style="font-size: 0.9em; color: #666;">Bijvoorbeeld: 315/80R22.5 of 11R22.5</p>
+                            <div class="form-group">
+                                <label for="tire-width">Breedte (mm):</label>
+                                <input type="number" id="tire-width" placeholder="315">
+                            </div>
+                            <div class="form-group">
+                                <label for="aspect-ratio">Aspect Ratio (%):</label>
+                                <input type="number" id="aspect-ratio" placeholder="80">
+                            </div>
+                            <div class="form-group">
+                                <label for="rim-diameter">Velg Diameter (inch):</label>
+                                <input type="number" id="rim-diameter" step="0.5" placeholder="22.5">
+                            </div>
+                        </div>
+
+                        <div id="diameter-convert-section" style="display:none;">
+                            <h3>Diameter Conversie</h3>
+                            <div class="form-group">
+                                <label for="input-diameter">Invoer Diameter:</label>
+                                <input type="number" id="input-diameter" step="0.01" placeholder="1050">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-unit">Van Eenheid:</label>
+                                <select id="input-unit">
+                                    <option value="mm">Millimeter (mm)</option>
+                                    <option value="cm">Centimeter (cm)</option>
+                                    <option value="inch">Inch</option>
+                                    <option value="m">Meter (m)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="output-unit">Naar Eenheid:</label>
+                                <select id="output-unit">
+                                    <option value="mm">Millimeter (mm)</option>
+                                    <option value="cm">Centimeter (cm)</option>
+                                    <option value="inch">Inch</option>
+                                    <option value="m">Meter (m)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="scale-wheel-section" style="display:none;">
+                            <h3>Schaal Wielconversie</h3>
+                            <div class="form-group">
+                                <label for="real-wheel-size">Werkelijke Wieldiameter (mm):</label>
+                                <input type="number" id="real-wheel-size" placeholder="1050">
+                            </div>
+                            <div class="form-group">
+                                <label for="model-scale">Model Schaal:</label>
+                                <select id="model-scale">
+                                    <option value="24">1:24</option>
+                                    <option value="32">1:32</option>
+                                    <option value="43">1:43</option>
+                                    <option value="50">1:50</option>
+                                    <option value="64">1:64</option>
+                                    <option value="87">1:87 (H0)</option>
+                                    <option value="160">1:160 (N)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="comparison-section" style="display:none;">
+                            <h3>Wiel Vergelijking</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                <div>
+                                    <h4>Wiel 1</h4>
+                                    <input type="text" id="wheel1-code" placeholder="Bandencode bijv. 315/80R22.5" style="width: 100%; margin-bottom: 10px;">
+                                    <input type="number" id="wheel1-diameter" placeholder="Of diameter in mm" style="width: 100%;">
+                                </div>
+                                <div>
+                                    <h4>Wiel 2</h4>
+                                    <input type="text" id="wheel2-code" placeholder="Bandencode bijv. 295/80R22.5" style="width: 100%; margin-bottom: 10px;">
+                                    <input type="number" id="wheel2-diameter" placeholder="Of diameter in mm" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculateWheel()">Bereken</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Resultaat</h3>
+                        <div id="result-content"></div>
+                        <canvas id="wheel-canvas" width="400" height="300" style="margin-top: 20px; display: none;"></canvas>
+                    </div>
+
+                    <div id="wheel-database" style="margin-top: 30px;">
+                        <h3>Veelgebruikte Truck Bandenmaten</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #1a4d2e; color: white;">
+                                    <th style="padding: 10px;">Bandencode</th>
+                                    <th style="padding: 10px;">Diameter (mm)</th>
+                                    <th style="padding: 10px;">Breedte (mm)</th>
+                                    <th style="padding: 10px;">Toepassing</th>
+                                    <th style="padding: 10px;">Actie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">315/80R22.5</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1076</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">315</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Vooras standaard</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><button onclick="useTireSize('315/80R22.5')">Gebruik</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">295/80R22.5</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1044</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">295</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Achteras dubbel</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><button onclick="useTireSize('295/80R22.5')">Gebruik</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">385/65R22.5</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1072</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">385</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Super single</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><button onclick="useTireSize('385/65R22.5')">Gebruik</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">11R22.5</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1054</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">279</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Standaard US</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;"><button onclick="useTireSize('11R22.5')">Gebruik</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h2>Bandencode Uitleg</h2>
+                <p>Een bandencode zoals 315/80R22.5 bevat belangrijke informatie:</p>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>315:</strong> Bandbreedte in millimeters</li>
+                    <li><strong>80:</strong> Aspect ratio - hoogte van de band als percentage van de breedte</li>
+                    <li><strong>R:</strong> Radiaal constructie (standaard voor moderne banden)</li>
+                    <li><strong>22.5:</strong> Velgdiameter in inches</li>
+                </ul>
+
+                <h2>Tips voor Wielkeuze</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li>Controleer altijd de wielkasten voor voldoende ruimte</li>
+                    <li>Houd rekening met de draaicirkel bij voorwielen</li>
+                    <li>Dubbele montage vereist smallere banden</li>
+                    <li>Super singles bieden meer laadvermogen bij minder gewicht</li>
+                    <li>Let op de juiste verhoudingen tussen voor- en achterwielen</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        function toggleConversionMode() {
+            const mode = document.getElementById('conversion-type').value;
+
+            // Hide all sections
+            document.getElementById('tire-code-section').style.display = 'none';
+            document.getElementById('diameter-convert-section').style.display = 'none';
+            document.getElementById('scale-wheel-section').style.display = 'none';
+            document.getElementById('comparison-section').style.display = 'none';
+
+            // Show selected section
+            if (mode === 'tire-code') {
+                document.getElementById('tire-code-section').style.display = 'block';
+            } else if (mode === 'diameter-convert') {
+                document.getElementById('diameter-convert-section').style.display = 'block';
+            } else if (mode === 'scale-wheel') {
+                document.getElementById('scale-wheel-section').style.display = 'block';
+            } else if (mode === 'comparison') {
+                document.getElementById('comparison-section').style.display = 'block';
+            }
+
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function calculateWheel() {
+            clearErrors();
+            const mode = document.getElementById('conversion-type').value;
+            let result = '';
+
+            if (mode === 'tire-code') {
+                const width = parseFloatNL(document.getElementById('tire-width').value);
+                const aspectRatio = parseFloatNL(document.getElementById('aspect-ratio').value);
+                const rimDiameter = parseFloatNL(document.getElementById('rim-diameter').value);
+
+                if (isNaN(width) || isNaN(aspectRatio) || isNaN(rimDiameter)) {
+                    alert('Vul alle velden correct in');
+                    return;
+                }
+
+                const sidewallHeight = (width * aspectRatio / 100) * 2;
+                const rimDiameterMm = rimDiameter * 25.4;
+                const totalDiameter = sidewallHeight + rimDiameterMm;
+                const totalDiameterInch = totalDiameter / 25.4;
+                const circumference = Math.PI * totalDiameter;
+
+                result = `<h4>Bandencode: ${width}/${aspectRatio}R${rimDiameter}</h4>`;
+                result += `<p><strong>Totale diameter:</strong> ${formatNumber(totalDiameter, 0)} mm / ${formatNumber(totalDiameterInch, 1)} inch</p>`;
+                result += `<p><strong>Bandbreedte:</strong> ${width} mm</p>`;
+                result += `<p><strong>Zijwandhoogte:</strong> ${formatNumber(sidewallHeight/2, 0)} mm</p>`;
+                result += `<p><strong>Velgdiameter:</strong> ${formatNumber(rimDiameterMm, 0)} mm / ${rimDiameter} inch</p>`;
+                result += `<p><strong>Omtrek:</strong> ${formatNumber(circumference, 0)} mm</p>`;
+                result += `<p><strong>Omwentelingen per km:</strong> ${formatNumber(1000000/circumference, 0)}</p>`;
+
+                drawWheel(totalDiameter, width, rimDiameterMm);
+
+            } else if (mode === 'diameter-convert') {
+                const inputValue = parseFloatNL(document.getElementById('input-diameter').value);
+                const inputUnit = document.getElementById('input-unit').value;
+                const outputUnit = document.getElementById('output-unit').value;
+
+                if (isNaN(inputValue)) {
+                    alert('Voer een geldige waarde in');
+                    return;
+                }
+
+                // Convert to mm first
+                let mmValue = inputValue;
+                switch (inputUnit) {
+                    case 'cm': mmValue = inputValue * 10; break;
+                    case 'inch': mmValue = inputValue * 25.4; break;
+                    case 'm': mmValue = inputValue * 1000; break;
+                }
+
+                // Convert from mm to target unit
+                let outputValue = mmValue;
+                switch (outputUnit) {
+                    case 'cm': outputValue = mmValue / 10; break;
+                    case 'inch': outputValue = mmValue / 25.4; break;
+                    case 'm': outputValue = mmValue / 1000; break;
+                }
+
+                result = `<p><strong>Invoer:</strong> ${formatNumber(inputValue)} ${inputUnit}</p>`;
+                result += `<p><strong>Uitvoer:</strong> ${formatNumber(outputValue)} ${outputUnit}</p>`;
+                result += `<hr>`;
+                result += `<p><strong>Alle eenheden:</strong></p>`;
+                result += `<p>Millimeter: ${formatNumber(mmValue, 1)} mm</p>`;
+                result += `<p>Centimeter: ${formatNumber(mmValue/10, 2)} cm</p>`;
+                result += `<p>Inch: ${formatNumber(mmValue/25.4, 2)} inch</p>`;
+                result += `<p>Meter: ${formatNumber(mmValue/1000, 3)} m</p>`;
+
+            } else if (mode === 'scale-wheel') {
+                const realSize = parseFloatNL(document.getElementById('real-wheel-size').value);
+                const scale = parseFloat(document.getElementById('model-scale').value);
+
+                if (isNaN(realSize)) {
+                    alert('Voer een geldige wieldiameter in');
+                    return;
+                }
+
+                const modelSize = realSize / scale;
+
+                result = `<p><strong>Werkelijke wieldiameter:</strong> ${formatNumber(realSize, 0)} mm</p>`;
+                result += `<p><strong>Schaal:</strong> 1:${scale}</p>`;
+                result += `<p><strong>Model wieldiameter:</strong> ${formatNumber(modelSize, 1)} mm</p>`;
+                result += `<hr>`;
+                result += `<h4>Voor verschillende schalen:</h4>`;
+
+                const scales = [24, 32, 43, 50, 64, 87, 160];
+                scales.forEach(s => {
+                    const size = realSize / s;
+                    result += `<p>1:${s} → ${formatNumber(size, 1)} mm</p>`;
+                });
+
+            } else if (mode === 'comparison') {
+                const wheel1Code = document.getElementById('wheel1-code').value;
+                const wheel1Diameter = parseFloatNL(document.getElementById('wheel1-diameter').value);
+                const wheel2Code = document.getElementById('wheel2-code').value;
+                const wheel2Diameter = parseFloatNL(document.getElementById('wheel2-diameter').value);
+
+                let diameter1 = wheel1Diameter;
+                let diameter2 = wheel2Diameter;
+
+                // Parse tire codes if provided
+                if (wheel1Code) {
+                    diameter1 = parseTireCode(wheel1Code);
+                }
+                if (wheel2Code) {
+                    diameter2 = parseTireCode(wheel2Code);
+                }
+
+                if (!diameter1 || !diameter2) {
+                    alert('Voer geldige bandencodes of diameters in');
+                    return;
+                }
+
+                const difference = Math.abs(diameter1 - diameter2);
+                const percentDiff = (difference / diameter1) * 100;
+
+                result = `<h4>Vergelijking</h4>`;
+                result += `<p><strong>Wiel 1:</strong> ${wheel1Code || formatNumber(diameter1, 0) + ' mm'} → Diameter: ${formatNumber(diameter1, 0)} mm</p>`;
+                result += `<p><strong>Wiel 2:</strong> ${wheel2Code || formatNumber(diameter2, 0) + ' mm'} → Diameter: ${formatNumber(diameter2, 0)} mm</p>`;
+                result += `<p><strong>Verschil:</strong> ${formatNumber(difference, 0)} mm (${formatNumber(percentDiff, 1)}%)</p>`;
+
+                if (diameter1 > diameter2) {
+                    result += `<p>Wiel 1 is ${formatNumber(difference, 0)} mm groter</p>`;
+                } else if (diameter2 > diameter1) {
+                    result += `<p>Wiel 2 is ${formatNumber(difference, 0)} mm groter</p>`;
+                } else {
+                    result += `<p>Beide wielen zijn even groot</p>`;
+                }
+
+                // Draw comparison
+                drawWheelComparison(diameter1, diameter2);
+            }
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function parseTireCode(code) {
+            // Parse formats like 315/80R22.5 or 11R22.5
+            const metricMatch = code.match(/(\d+)\/(\d+)R([\d.]+)/);
+            const imperialMatch = code.match(/(\d+)R([\d.]+)/);
+
+            if (metricMatch) {
+                const width = parseFloat(metricMatch[1]);
+                const aspectRatio = parseFloat(metricMatch[2]);
+                const rimDiameter = parseFloat(metricMatch[3]);
+
+                const sidewallHeight = (width * aspectRatio / 100) * 2;
+                const rimDiameterMm = rimDiameter * 25.4;
+                return sidewallHeight + rimDiameterMm;
+
+            } else if (imperialMatch) {
+                // Approximate calculation for imperial sizes
+                const width = parseFloat(imperialMatch[1]) * 25.4; // Convert to mm
+                const rimDiameter = parseFloat(imperialMatch[2]) * 25.4;
+                const sidewallHeight = width * 0.85; // Approximate aspect ratio
+                return sidewallHeight + rimDiameter;
+            }
+
+            return null;
+        }
+
+        function useTireSize(code) {
+            document.getElementById('conversion-type').value = 'tire-code';
+            toggleConversionMode();
+
+            const parts = code.match(/(\d+)\/(\d+)R([\d.]+)/);
+            if (parts) {
+                document.getElementById('tire-width').value = parts[1];
+                document.getElementById('aspect-ratio').value = parts[2];
+                document.getElementById('rim-diameter').value = parts[3];
+                calculateWheel();
+            }
+        }
+
+        function drawWheel(diameter, width, rimDiameter) {
+            const canvas = document.getElementById('wheel-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.style.display = 'block';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const scale = 150 / diameter;
+            const centerX = 200;
+            const centerY = 150;
+
+            // Draw tire
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, diameter * scale / 2, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = width * scale / 10;
+            ctx.stroke();
+
+            // Draw rim
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, rimDiameter * scale / 2, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#888';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Add dimension labels
+            ctx.font = '12px Arial';
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Ø ${formatNumber(diameter, 0)} mm`, centerX, centerY + diameter * scale / 2 + 20);
+            ctx.fillText(`Breedte: ${formatNumber(width, 0)} mm`, centerX, 30);
+        }
+
+        function drawWheelComparison(diameter1, diameter2) {
+            const canvas = document.getElementById('wheel-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.style.display = 'block';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const maxDiameter = Math.max(diameter1, diameter2);
+            const scale = 100 / maxDiameter;
+
+            // Draw first wheel
+            ctx.beginPath();
+            ctx.arc(150, 150, diameter1 * scale / 2, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#1a4d2e';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Draw second wheel
+            ctx.beginPath();
+            ctx.arc(150, 150, diameter2 * scale / 2, 0, 2 * Math.PI);
+            ctx.strokeStyle = '#d32f2f';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Add legend
+            ctx.font = '12px Arial';
+            ctx.fillStyle = '#1a4d2e';
+            ctx.fillText('Wiel 1', 250, 50);
+            ctx.fillStyle = '#d32f2f';
+            ctx.fillText('Wiel 2', 250, 70);
+        }
+    </script>
+</body>
+</html>

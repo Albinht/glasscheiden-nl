@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Truckmodelbouw Blog - Alle artikelen, tools en technieken voor professionele truckmodelbouw">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Blog - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="container">
+            <p>Deze website maakt gebruik van cookies om uw ervaring te verbeteren.</p>
+            <button onclick="acceptCookies()" class="btn-primary">Accepteren</button>
+            <a href="cookies.html" class="cookie-link">Meer informatie</a>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="nav-active"><a href="blog.html">Blog</a></li>
+                    <li><a href="over.html">Over Ons</a></li>
+                    <li><a href="adverteren.html">Adverteren</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="index.html">Home</a> > <span>Blog</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Blog & Tools</h1>
+                <p class="lead">Ontdek onze complete collectie van professionele tools, technieken en hulpmiddelen voor truckmodelbouw. Alle artikelen zijn samengesteld door expert Jan van der Berg.</p>
+
+                <div class="blog-filters">
+                    <button class="filter-btn active" onclick="filterPosts('all')">Alle Posts</button>
+                    <button class="filter-btn" onclick="filterPosts('hulpmiddelen')">Hulpmiddelen</button>
+                    <button class="filter-btn" onclick="filterPosts('technieken')">Technieken</button>
+                    <button class="filter-btn" onclick="filterPosts('planning')">Planning</button>
+                    <button class="filter-btn" onclick="filterPosts('organisatie')">Organisatie</button>
+                </div>
+
+                <div class="blog-grid">
+                    <article class="blog-card" data-category="hulpmiddelen">
+                        <div class="blog-card-header">
+                            <span class="category">Hulpmiddelen</span>
+                            <span class="read-time">5 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/schaalcalculator.html">Schaalcalculator voor Truckmodellen</a></h3>
+                        <p>Bereken eenvoudig de juiste schaal voor uw truckmodel met onze professionele calculator. Essential tool voor nauwkeurige afmetingen.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/schaalcalculator.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="technieken">
+                        <div class="blog-card-header">
+                            <span class="category">Technieken</span>
+                            <span class="read-time">4 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/verfverdunner.html">Verfverdunner Verhoudingen</a></h3>
+                        <p>Bepaal de exacte verdunningsverhoudingen voor verschillende verftypen en applicatiemethoden. Professionele resultaten gegarandeerd.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/verfverdunner.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="planning">
+                        <div class="blog-card-header">
+                            <span class="category">Planning</span>
+                            <span class="read-time">7 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/budget-planner.html">Project Budget Planner</a></h3>
+                        <p>Plan en beheer uw modelbouwbudget effectief met onze uitgebreide planningstool. Voorkom kostenoverschrijdingen.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/budget-planner.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="organisatie">
+                        <div class="blog-card-header">
+                            <span class="category">Organisatie</span>
+                            <span class="read-time">6 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/onderdelen-checklist.html">Onderdelen Checklist Tool</a></h3>
+                        <p>Houd overzicht over alle benodigde onderdelen met onze interactieve checklist. Nooit meer vergeten wat u nodig heeft.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/onderdelen-checklist.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="technieken">
+                        <div class="blog-card-header">
+                            <span class="category">Technieken</span>
+                            <span class="read-time">5 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/wieldiameter.html">Wieldiameter Converter</a></h3>
+                        <p>Converteer wieldiameters tussen verschillende schalen en eenheden. Perfecte wielen voor elk model.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/wieldiameter.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="technieken">
+                        <div class="blog-card-header">
+                            <span class="category">Technieken</span>
+                            <span class="read-time">4 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/gewicht-schatter.html">Gewicht Schatter</a></h3>
+                        <p>Schat het gewicht van uw model voor transport en display doeleinden. Belangrijk voor veilige presentatie.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/gewicht-schatter.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="planning">
+                        <div class="blog-card-header">
+                            <span class="category">Planning</span>
+                            <span class="read-time">6 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/bouwtijd.html">Bouwtijd Calculator</a></h3>
+                        <p>Bereken realistische bouwtijd voor uw project op basis van complexiteit en ervaring. Plan effectief vooruit.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/bouwtijd.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="technieken">
+                        <div class="blog-card-header">
+                            <span class="category">Technieken</span>
+                            <span class="read-time">5 min leestijd</span>
+                        </div>
+                        <h3><a href="blog/verf-oppervlakte.html">Verf Oppervlakte Calculator</a></h3>
+                        <p>Bereken hoeveel verf u nodig heeft voor uw project. Voorkom verspilling en tekorten bij het spuiten.</p>
+                        <div class="blog-card-footer">
+                            <span class="author">Door Jan van der Berg</span>
+                            <a href="blog/verf-oppervlakte.html" class="read-more">Lees meer →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="blog-sidebar">
+                    <div class="sidebar-widget">
+                        <h3>Populaire Categorieën</h3>
+                        <ul class="category-list">
+                            <li><a href="#" onclick="filterPosts('technieken')">Technieken <span>(5)</span></a></li>
+                            <li><a href="#" onclick="filterPosts('hulpmiddelen')">Hulpmiddelen <span>(1)</span></a></li>
+                            <li><a href="#" onclick="filterPosts('planning')">Planning <span>(2)</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Over de Auteur</h3>
+                        <p>Jan van der Berg heeft meer dan 20 jaar ervaring in professionele modelbouw en deelt zijn expertise via deze tools en artikelen.</p>
+                        <a href="over.html" class="btn-secondary">Meer over Jan →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacybeleid</a></li>
+                        <li><a href="cookies.html">Cookie Beleid</a></li>
+                        <li><a href="adverteren.html">Adverteren</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

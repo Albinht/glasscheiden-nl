@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Budget planner voor truckmodelbouw projecten - Plan en beheer uw modelbouwbudget effectief">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Project Budget Planner - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>budget-planner</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Project Budget Planner voor Truckmodelbouw</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Planning | December 2024
+                </div>
+
+                <p>Een goed doordacht budget is de basis van elk succesvol modelbouwproject. Deze professionele budget planner helpt u alle kosten in kaart te brengen, van de basiskit tot aan de kleinste detailonderdelen. Voorkom verrassingen en houd grip op uw uitgaven.</p>
+
+                <h2>Waarom Budgettering Belangrijk Is</h2>
+                <p>Truckmodelbouw kan een kostbare hobby zijn, vooral wanneer u streeft naar hoogwaardige, gedetailleerde modellen. Kosten kunnen snel oplopen door extra onderdelen, gereedschap, verf en accessoires. Een gestructureerde budgetplanning voorkomt dat projecten halverwege blijven steken door geldgebrek en helpt u prioriteiten te stellen.</p>
+
+                <div class="tool-container">
+                    <h2>Budget Calculator Tool</h2>
+                    <div class="tool-form">
+                        <div class="form-group">
+                            <label for="project-name">Projectnaam:</label>
+                            <input type="text" id="project-name" placeholder="Bijv. DAF XF 105 1:24">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="budget-limit">Maximaal Budget (€):</label>
+                            <input type="number" id="budget-limit" step="0.01" placeholder="Bijv. 250">
+                        </div>
+
+                        <h3>Kostenposten Toevoegen</h3>
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <input type="text" id="item-name" placeholder="Onderdeel naam" style="flex: 2;">
+                            <select id="item-category" style="flex: 1;">
+                                <option value="kit">Basiskit</option>
+                                <option value="paint">Verf & Primers</option>
+                                <option value="tools">Gereedschap</option>
+                                <option value="details">Detailonderdelen</option>
+                                <option value="electronics">Elektronica</option>
+                                <option value="decals">Decals & Stickers</option>
+                                <option value="materials">Materialen</option>
+                                <option value="other">Overig</option>
+                            </select>
+                            <input type="number" id="item-cost" step="0.01" placeholder="Prijs €" style="flex: 1;">
+                            <input type="number" id="item-quantity" value="1" min="1" placeholder="Aantal" style="flex: 0.5;">
+                            <button type="button" class="btn-primary" onclick="addBudgetItem()">Toevoegen</button>
+                        </div>
+
+                        <div id="budget-items">
+                            <h3>Projectkosten</h3>
+                            <table id="budget-table" style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #1a4d2e; color: white;">
+                                        <th style="padding: 10px; text-align: left;">Onderdeel</th>
+                                        <th style="padding: 10px; text-align: left;">Categorie</th>
+                                        <th style="padding: 10px; text-align: center;">Aantal</th>
+                                        <th style="padding: 10px; text-align: right;">Prijs per stuk</th>
+                                        <th style="padding: 10px; text-align: right;">Totaal</th>
+                                        <th style="padding: 10px; text-align: center;">Actie</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="budget-tbody">
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-weight: bold; border-top: 2px solid #1a4d2e;">
+                                        <td colspan="4" style="padding: 10px;">Totaal:</td>
+                                        <td style="padding: 10px; text-align: right;" id="total-cost">€ 0,00</td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div id="budget-summary" class="result-box" style="display:none; margin-top: 20px;">
+                            <h3>Budget Overzicht</h3>
+                            <div id="summary-content"></div>
+                            <canvas id="budget-chart" width="400" height="200" style="margin-top: 20px;"></canvas>
+                        </div>
+
+                        <div style="margin-top: 20px; display: flex; gap: 10px;">
+                            <button type="button" class="btn-primary" onclick="calculateBudget()">Analyseer Budget</button>
+                            <button type="button" class="btn-secondary" onclick="exportBudget()">Export naar CSV</button>
+                            <button type="button" class="btn-secondary" onclick="saveBudget()">Bewaar Project</button>
+                        </div>
+                    </div>
+
+                    <div id="saved-projects" style="display:none; margin-top: 30px;">
+                        <h3>Opgeslagen Projecten</h3>
+                        <div id="projects-list"></div>
+                    </div>
+                </div>
+
+                <h2>Typische Kostenposten voor Truckmodelbouw</h2>
+                <p>Bij het plannen van uw budget, houd rekening met deze veelvoorkomende kostenposten:</p>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>Basiskit:</strong> €30 - €150 afhankelijk van schaal en merk</li>
+                    <li><strong>Verf set:</strong> €20 - €60 voor basiskleuren</li>
+                    <li><strong>Primers:</strong> €5 - €15 per spuitbus</li>
+                    <li><strong>Lijm en vulmiddelen:</strong> €10 - €25</li>
+                    <li><strong>Detailsets:</strong> €15 - €50 per set</li>
+                    <li><strong>Decals:</strong> €10 - €30</li>
+                    <li><strong>LED verlichting:</strong> €15 - €40</li>
+                    <li><strong>Weeringseffecten:</strong> €15 - €30</li>
+                </ul>
+
+                <h2>Besparingstips</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li>Koop verf in sets voor betere prijzen</li>
+                    <li>Investeer in kwaliteitsgereedschap dat lang meegaat</li>
+                    <li>Begin met eenvoudige projecten om ervaring op te doen</li>
+                    <li>Maak gebruik van aanbiedingen en kortingsacties</li>
+                    <li>Hergebruik onderdelen van oude projecten waar mogelijk</li>
+                    <li>Deel gereedschap met andere modelbouwers</li>
+                    <li>Koop bulk materialen samen met anderen</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        let budgetItems = [];
+        let savedProjects = JSON.parse(localStorage.getItem('budgetProjects') || '[]');
+
+        function addBudgetItem() {
+            const name = document.getElementById('item-name').value;
+            const category = document.getElementById('item-category').value;
+            const cost = parseFloatNL(document.getElementById('item-cost').value);
+            const quantity = parseInt(document.getElementById('item-quantity').value);
+
+            if (!name || isNaN(cost) || cost <= 0 || isNaN(quantity) || quantity <= 0) {
+                alert('Vul alle velden correct in');
+                return;
+            }
+
+            budgetItems.push({
+                name,
+                category,
+                cost,
+                quantity,
+                total: cost * quantity
+            });
+
+            // Clear inputs
+            document.getElementById('item-name').value = '';
+            document.getElementById('item-cost').value = '';
+            document.getElementById('item-quantity').value = '1';
+
+            updateBudgetTable();
+        }
+
+        function updateBudgetTable() {
+            const tbody = document.getElementById('budget-tbody');
+            tbody.innerHTML = '';
+
+            let total = 0;
+            budgetItems.forEach((item, index) => {
+                total += item.total;
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="padding: 10px;">${item.name}</td>
+                        <td style="padding: 10px;">${getCategoryName(item.category)}</td>
+                        <td style="padding: 10px; text-align: center;">${item.quantity}</td>
+                        <td style="padding: 10px; text-align: right;">€ ${formatNumber(item.cost)}</td>
+                        <td style="padding: 10px; text-align: right;">€ ${formatNumber(item.total)}</td>
+                        <td style="padding: 10px; text-align: center;">
+                            <button onclick="removeItem(${index})" style="background: #d32f2f; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">Verwijder</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('total-cost').textContent = `€ ${formatNumber(total)}`;
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'kit': 'Basiskit',
+                'paint': 'Verf & Primers',
+                'tools': 'Gereedschap',
+                'details': 'Detailonderdelen',
+                'electronics': 'Elektronica',
+                'decals': 'Decals & Stickers',
+                'materials': 'Materialen',
+                'other': 'Overig'
+            };
+            return names[category] || category;
+        }
+
+        function removeItem(index) {
+            budgetItems.splice(index, 1);
+            updateBudgetTable();
+        }
+
+        function calculateBudget() {
+            if (budgetItems.length === 0) {
+                alert('Voeg eerst items toe aan uw budget');
+                return;
+            }
+
+            const budgetLimit = parseFloatNL(document.getElementById('budget-limit').value) || 0;
+            const total = budgetItems.reduce((sum, item) => sum + item.total, 0);
+
+            // Calculate category totals
+            const categoryTotals = {};
+            budgetItems.forEach(item => {
+                if (!categoryTotals[item.category]) {
+                    categoryTotals[item.category] = 0;
+                }
+                categoryTotals[item.category] += item.total;
+            });
+
+            let summaryHtml = `<p><strong>Totale kosten:</strong> € ${formatNumber(total)}</p>`;
+
+            if (budgetLimit > 0) {
+                const remaining = budgetLimit - total;
+                const percentage = (total / budgetLimit) * 100;
+
+                summaryHtml += `<p><strong>Budget limiet:</strong> € ${formatNumber(budgetLimit)}</p>`;
+                summaryHtml += `<p><strong>Resterend budget:</strong> € ${formatNumber(remaining)}</p>`;
+                summaryHtml += `<p><strong>Budget gebruikt:</strong> ${formatNumber(percentage, 0)}%</p>`;
+
+                if (remaining < 0) {
+                    summaryHtml += `<p style="color: #d32f2f; font-weight: bold;">⚠ Budget overschreden met € ${formatNumber(Math.abs(remaining))}!</p>`;
+                }
+            }
+
+            summaryHtml += '<h4>Kosten per categorie:</h4><button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">';
+            Object.entries(categoryTotals).forEach(([category, amount]) => {
+                const percentage = (amount / total) * 100;
+                summaryHtml += `<li>${getCategoryName(category)}: € ${formatNumber(amount)} (${formatNumber(percentage, 0)}%)</li>`;
+            });
+            summaryHtml += '</ul>';
+
+            document.getElementById('summary-content').innerHTML = summaryHtml;
+            document.getElementById('budget-summary').style.display = 'block';
+
+            // Draw simple bar chart
+            drawBudgetChart(categoryTotals);
+        }
+
+        function drawBudgetChart(categoryTotals) {
+            const canvas = document.getElementById('budget-chart');
+            const ctx = canvas.getContext('2d');
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const categories = Object.keys(categoryTotals);
+            const values = Object.values(categoryTotals);
+            const maxValue = Math.max(...values);
+
+            const barWidth = (canvas.width - 40) / categories.length;
+            const scale = (canvas.height - 60) / maxValue;
+
+            categories.forEach((category, index) => {
+                const barHeight = values[index] * scale;
+                const x = 20 + (index * barWidth);
+                const y = canvas.height - 40 - barHeight;
+
+                // Draw bar
+                ctx.fillStyle = '#1a4d2e';
+                ctx.fillRect(x + 10, y, barWidth - 20, barHeight);
+
+                // Draw value
+                ctx.fillStyle = '#333';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(`€${formatNumber(values[index], 0)}`, x + barWidth/2, y - 5);
+
+                // Draw category label
+                ctx.save();
+                ctx.translate(x + barWidth/2, canvas.height - 10);
+                ctx.rotate(-Math.PI/6);
+                ctx.textAlign = 'right';
+                ctx.fillText(getCategoryName(category), 0, 0);
+                ctx.restore();
+            });
+        }
+
+        function exportBudget() {
+            if (budgetItems.length === 0) {
+                alert('Geen items om te exporteren');
+                return;
+            }
+
+            let csv = 'Onderdeel,Categorie,Aantal,Prijs per stuk,Totaal\n';
+            budgetItems.forEach(item => {
+                csv += `"${item.name}","${getCategoryName(item.category)}",${item.quantity},${item.cost},${item.total}\n`;
+            });
+
+            const total = budgetItems.reduce((sum, item) => sum + item.total, 0);
+            csv += `,,,,${total}`;
+
+            exportToCSV(csv, 'truckmodel_budget.csv');
+        }
+
+        function saveBudget() {
+            const projectName = document.getElementById('project-name').value;
+            if (!projectName || budgetItems.length === 0) {
+                alert('Voer een projectnaam in en voeg items toe');
+                return;
+            }
+
+            const project = {
+                name: projectName,
+                items: budgetItems,
+                total: budgetItems.reduce((sum, item) => sum + item.total, 0),
+                date: new Date().toLocaleDateString('nl-NL')
+            };
+
+            savedProjects.push(project);
+            localStorage.setItem('budgetProjects', JSON.stringify(savedProjects));
+            displaySavedProjects();
+            alert('Project opgeslagen!');
+        }
+
+        function displaySavedProjects() {
+            if (savedProjects.length === 0) return;
+
+            let html = '<button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">';
+            savedProjects.forEach((project, index) => {
+                html += `<li>
+                    <strong>${project.name}</strong> -
+                    € ${formatNumber(project.total)} -
+                    ${project.date}
+                    <button onclick="loadProject(${index})" style="margin-left: 10px;">Laden</button>
+                    <button onclick="deleteProject(${index})" style="margin-left: 5px;">Verwijder</button>
+                </li>`;
+            });
+            html += '</ul>';
+
+            document.getElementById('projects-list').innerHTML = html;
+            document.getElementById('saved-projects').style.display = 'block';
+        }
+
+        function loadProject(index) {
+            const project = savedProjects[index];
+            document.getElementById('project-name').value = project.name;
+            budgetItems = [...project.items];
+            updateBudgetTable();
+        }
+
+        function deleteProject(index) {
+            savedProjects.splice(index, 1);
+            localStorage.setItem('budgetProjects', JSON.stringify(savedProjects));
+            displaySavedProjects();
+
+            if (savedProjects.length === 0) {
+                document.getElementById('saved-projects').style.display = 'none';
+            }
+        }
+
+        // Load saved projects on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySavedProjects();
+        });
+    </script>
+</body>
+</html>

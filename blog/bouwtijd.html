@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bouwtijd calculator voor truckmodelbouw projecten - Schat de benodigde tijd voor uw modelbouwproject">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Bouwtijd Calculator - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>bouwtijd</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Bouwtijd Calculator</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Planning | December 2024
+                </div>
+
+                <p>Een realistische tijdsplanning is essentieel voor het succesvol voltooien van uw truckmodel. Deze professionele calculator helpt u de benodigde bouwtijd in te schatten op basis van complexiteit, ervaring en gewenst detailniveau. Plan uw project effectief en voorkom frustratie door tijdsdruk.</p>
+
+                <h2>Factoren die Bouwtijd Beïnvloeden</h2>
+                <p>De bouwtijd van een truckmodel wordt bepaald door vele factoren: de complexiteit van de kit, uw ervaringsniveau, het gewenste detailniveau, beschikbare tijd per sessie, en de gebruikte technieken. Deze calculator houdt rekening met al deze aspecten voor een realistische inschatting.</p>
+
+                <div class="tool-container">
+                    <h2>Tijdsinschatting Tool</h2>
+                    <div class="tool-form">
+                        <h3>Project Details</h3>
+                        <div class="form-group">
+                            <label for="kit-parts">Aantal onderdelen:</label>
+                            <select id="kit-parts">
+                                <option value="100">< 100 onderdelen</option>
+                                <option value="250">100-250 onderdelen</option>
+                                <option value="500">250-500 onderdelen</option>
+                                <option value="750">500-750 onderdelen</option>
+                                <option value="1000">> 750 onderdelen</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience-level">Ervaringsniveau:</label>
+                            <select id="experience-level">
+                                <option value="beginner">Beginner (< 5 modellen)</option>
+                                <option value="intermediate">Gemiddeld (5-20 modellen)</option>
+                                <option value="advanced">Gevorderd (20-50 modellen)</option>
+                                <option value="expert">Expert (> 50 modellen)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="detail-level">Gewenst detailniveau:</label>
+                            <select id="detail-level">
+                                <option value="basic">Basis - uit de doos</option>
+                                <option value="moderate">Gemiddeld - lichte aanpassingen</option>
+                                <option value="high">Hoog - extra detaillering</option>
+                                <option value="competition">Wedstrijd niveau</option>
+                            </select>
+                        </div>
+
+                        <h3>Werkprocessen</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <label><input type="checkbox" id="process-assembly" checked disabled> Assemblage</label>
+                            <label><input type="checkbox" id="process-painting" checked> Schilderen</label>
+                            <label><input type="checkbox" id="process-weathering"> Weathering</label>
+                            <label><input type="checkbox" id="process-detailing"> Extra detaillering</label>
+                            <label><input type="checkbox" id="process-lighting"> LED verlichting</label>
+                            <label><input type="checkbox" id="process-custom"> Custom modificaties</label>
+                            <label><input type="checkbox" id="process-decals" checked> Decals aanbrengen</label>
+                            <label><input type="checkbox" id="process-clear"> Clear coat/vernissen</label>
+                        </div>
+
+                        <h3>Werkomstandigheden</h3>
+                        <div class="form-group">
+                            <label for="session-length">Gemiddelde sessie duur:</label>
+                            <select id="session-length">
+                                <option value="1">1 uur</option>
+                                <option value="2">2 uur</option>
+                                <option value="3">3 uur</option>
+                                <option value="4">4+ uur</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessions-per-week">Sessies per week:</label>
+                            <select id="sessions-per-week">
+                                <option value="1">1 sessie</option>
+                                <option value="2">2 sessies</option>
+                                <option value="3">3-4 sessies</option>
+                                <option value="5">5-7 sessies</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workspace-quality">Werkruimte kwaliteit:</label>
+                            <select id="workspace-quality">
+                                <option value="basic">Basis - keukentafel</option>
+                                <option value="dedicated">Toegewijde werkplek</option>
+                                <option value="workshop">Volledige werkplaats</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculateBuildTime()">Bereken Bouwtijd</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Geschatte Bouwtijd</h3>
+                        <div id="result-content"></div>
+                    </div>
+
+                    <div id="timeline" style="display:none; margin-top: 30px;">
+                        <h3>Voorgestelde Planning</h3>
+                        <div id="timeline-content"></div>
+                    </div>
+
+                    <div id="tips-section" style="margin-top: 30px;">
+                        <h3>Tijdsbesparende Tips</h3>
+                        <ul id="time-tips">
+                            <li>Organiseer alle onderdelen voordat u begint</li>
+                            <li>Lees de instructies volledig door voor aanvang</li>
+                            <li>Werk in batches - verf alle vergelijkbare onderdelen tegelijk</li>
+                            <li>Gebruik de juiste gereedschappen voor elke taak</li>
+                            <li>Plan droogtijden effectief in</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Realistische Tijdsinschattingen per Fase</h2>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="background: #1a4d2e; color: white;">
+                            <th style="padding: 10px;">Fase</th>
+                            <th style="padding: 10px;">Beginner</th>
+                            <th style="padding: 10px;">Gevorderd</th>
+                            <th style="padding: 10px;">Expert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Voorbereiding</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">1-2 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">30-60 min</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Assemblage chassis</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">4-6 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">1-2 uur</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Cabine bouwen</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">3-4 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">1-2 uur</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Schilderen basis</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">6-8 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">4-5 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Detaillering</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">4-6 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">3-4 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Afwerking</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">2-3 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">1-2 uur</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">1 uur</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Planning Strategieën</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>Weekend Warrior:</strong> 2-3 uur per weekend, project in 2-3 maanden</li>
+                    <li><strong>Avond Hobbyist:</strong> 1 uur per avond, 3-4 avonden per week</li>
+                    <li><strong>Intensief Project:</strong> 4+ uur per dag, project in 1-2 weken</li>
+                    <li><strong>Lange Termijn:</strong> Onregelmatig, focus op kwaliteit boven snelheid</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        // Base time factors in hours
+        const baseTimes = {
+            'beginner': 1.5,
+            'intermediate': 1.0,
+            'advanced': 0.7,
+            'expert': 0.5
+        };
+
+        const detailMultipliers = {
+            'basic': 0.8,
+            'moderate': 1.0,
+            'high': 1.5,
+            'competition': 2.0
+        };
+
+        const processHours = {
+            'process-assembly': 0, // Already included in base
+            'process-painting': 4,
+            'process-weathering': 3,
+            'process-detailing': 4,
+            'process-lighting': 2,
+            'process-custom': 5,
+            'process-decals': 1,
+            'process-clear': 1.5
+        };
+
+        function calculateBuildTime() {
+            const parts = parseInt(document.getElementById('kit-parts').value);
+            const experience = document.getElementById('experience-level').value;
+            const detail = document.getElementById('detail-level').value;
+            const sessionLength = parseFloat(document.getElementById('session-length').value);
+            const sessionsPerWeek = parseFloat(document.getElementById('sessions-per-week').value);
+            const workspace = document.getElementById('workspace-quality').value;
+
+            // Calculate base hours
+            let baseHours = (parts / 10) * baseTimes[experience];
+            baseHours *= detailMultipliers[detail];
+
+            // Add process hours
+            let processTotal = 0;
+            Object.keys(processHours).forEach(process => {
+                if (document.getElementById(process).checked) {
+                    let hours = processHours[process];
+                    // Adjust for experience
+                    hours *= baseTimes[experience] / baseTimes['intermediate'];
+                    processTotal += hours;
+                }
+            });
+
+            // Workspace efficiency
+            let workspaceMultiplier = 1.0;
+            if (workspace === 'basic') workspaceMultiplier = 1.2;
+            if (workspace === 'workshop') workspaceMultiplier = 0.9;
+
+            const totalHours = (baseHours + processTotal) * workspaceMultiplier;
+
+            // Calculate timeline
+            const hoursPerWeek = sessionLength * sessionsPerWeek;
+            const weeks = totalHours / hoursPerWeek;
+            const days = weeks * 7;
+
+            // Generate result
+            let result = `<p><strong>Totale bouwtijd:</strong> ${formatNumber(totalHours, 0)} uur</p>`;
+            result += `<p><strong>Geschatte doorlooptijd:</strong> `;
+
+            if (weeks < 1) {
+                result += `${formatNumber(days, 0)} dagen`;
+            } else if (weeks < 4) {
+                result += `${formatNumber(weeks, 1)} weken`;
+            } else {
+                result += `${formatNumber(weeks/4, 1)} maanden`;
+            }
+            result += `</p>`;
+
+            result += `<hr>`;
+            result += `<h4>Tijdsverdeling:</h4>`;
+            result += `<p>Basis assemblage: ${formatNumber(baseHours, 0)} uur</p>`;
+
+            if (processTotal > 0) {
+                Object.keys(processHours).forEach(process => {
+                    if (document.getElementById(process).checked && processHours[process] > 0) {
+                        let hours = processHours[process] * baseTimes[experience] / baseTimes['intermediate'] * workspaceMultiplier;
+                        const processName = document.querySelector(`label:has(#${process})`).textContent.trim();
+                        result += `<p>${processName}: ${formatNumber(hours, 1)} uur</p>`;
+                    }
+                });
+            }
+
+            result += `<hr>`;
+            result += `<h4>Werkschema:</h4>`;
+            result += `<p>Sessies per week: ${sessionsPerWeek}</p>`;
+            result += `<p>Uren per sessie: ${sessionLength}</p>`;
+            result += `<p>Totaal aantal sessies: ${Math.ceil(totalHours / sessionLength)}</p>`;
+
+            // Add efficiency tips based on experience
+            result += `<hr>`;
+            result += `<h4>Persoonlijk advies:</h4>`;
+
+            if (experience === 'beginner') {
+                result += `<p>• Neem extra tijd voor het lezen van instructies</p>`;
+                result += `<p>• Plan korte sessies om concentratie te behouden</p>`;
+                result += `<p>• Overweeg om eerst te oefenen op goedkopere kits</p>`;
+            } else if (experience === 'intermediate') {
+                result += `<p>• Focus op het verbeteren van specifieke technieken</p>`;
+                result += `<p>• Experimenteer met nieuwe materialen</p>`;
+            } else {
+                result += `<p>• Overweeg batch-processing voor efficiency</p>`;
+                result += `<p>• Documenteer uw proces voor toekomstige projecten</p>`;
+            }
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+
+            // Create timeline
+            createTimeline(totalHours, hoursPerWeek);
+        }
+
+        function createTimeline(totalHours, hoursPerWeek) {
+            const phases = [
+                { name: 'Voorbereiding & Planning', percentage: 10 },
+                { name: 'Chassis Assemblage', percentage: 20 },
+                { name: 'Cabine & Carrosserie', percentage: 20 },
+                { name: 'Schilderen & Primers', percentage: 25 },
+                { name: 'Detaillering', percentage: 15 },
+                { name: 'Afwerking & Vernissen', percentage: 10 }
+            ];
+
+            let timelineHtml = '<div style="background: #f9f9f9; padding: 20px; border-radius: 5px;">';
+
+            let cumulativeWeeks = 0;
+            phases.forEach(phase => {
+                const phaseHours = (totalHours * phase.percentage) / 100;
+                const phaseWeeks = phaseHours / hoursPerWeek;
+                cumulativeWeeks += phaseWeeks;
+
+                timelineHtml += `
+                    <div style="margin-bottom: 15px; padding: 10px; background: white; border-left: 4px solid #1a4d2e;">
+                        <strong>${phase.name}</strong><br>
+                        <span style="color: #666;">Duur: ${formatNumber(phaseHours, 0)} uur (`;
+
+                if (phaseWeeks < 1) {
+                    timelineHtml += `${formatNumber(phaseWeeks * 7, 0)} dagen)`;
+                } else {
+                    timelineHtml += `${formatNumber(phaseWeeks, 1)} weken)`;
+                }
+
+                timelineHtml += `</span><br>`;
+                timelineHtml += `<span style="color: #999; font-size: 0.9em;">Klaar na: `;
+
+                if (cumulativeWeeks < 1) {
+                    timelineHtml += `dag ${formatNumber(cumulativeWeeks * 7, 0)}`;
+                } else if (cumulativeWeeks < 4) {
+                    timelineHtml += `week ${formatNumber(cumulativeWeeks, 1)}`;
+                } else {
+                    timelineHtml += `maand ${formatNumber(cumulativeWeeks/4, 1)}`;
+                }
+
+                timelineHtml += `</span>`;
+                timelineHtml += `</div>`;
+            });
+
+            timelineHtml += '</div>';
+
+            document.getElementById('timeline-content').innerHTML = timelineHtml;
+            document.getElementById('timeline').style.display = 'block';
+
+            // Update tips based on timeline
+            updateTimeTips(totalHours);
+        }
+
+        function updateTimeTips(totalHours) {
+            let tips = [
+                'Organiseer alle onderdelen voordat u begint',
+                'Lees de instructies volledig door voor aanvang',
+                'Werk in batches - verf alle vergelijkbare onderdelen tegelijk',
+                'Gebruik de juiste gereedschappen voor elke taak',
+                'Plan droogtijden effectief in'
+            ];
+
+            if (totalHours > 40) {
+                tips.push('Overweeg het project in duidelijke fasen op te delen');
+                tips.push('Maak foto\'s van uw voortgang voor motivatie');
+                tips.push('Plan regelmatige pauzes om burn-out te voorkomen');
+            }
+
+            if (totalHours > 20) {
+                tips.push('Houd een projectlogboek bij voor notities');
+                tips.push('Bereid meerdere taken voor om wachttijden te minimaliseren');
+            }
+
+            let tipsHtml = '';
+            tips.forEach(tip => {
+                tipsHtml += `<li>${tip}</li>`;
+            });
+
+            document.getElementById('time-tips').innerHTML = tipsHtml;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure assembly is always checked
+            document.getElementById('process-assembly').checked = true;
+        });
+    </script>
+</body>
+</html>

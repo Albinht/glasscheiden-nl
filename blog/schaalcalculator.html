@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professionele schaalcalculator voor truckmodelbouw - Bereken exact de juiste schaal voor uw model">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Schaalcalculator voor Truckmodellen - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>Schaalcalculator</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Schaalcalculator voor Truckmodellen</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Hulpmiddelen | December 2024
+                </div>
+
+                <p>Het bepalen van de juiste schaal is essentieel voor elk succesvol modelbouwproject. Deze professionele schaalcalculator helpt u bij het omrekenen tussen werkelijke afmetingen en modelafmetingen, zodat uw truckmodel perfect in verhouding blijft.</p>
+
+                <h2>Waarom is de juiste schaal belangrijk?</h2>
+                <p>Bij het bouwen van truckmodellen is nauwkeurigheid cruciaal. Een correcte schaalberekening zorgt ervoor dat alle onderdelen van uw model - van de cabine tot de trailer - in perfecte harmonie zijn. Dit is vooral belangrijk wanneer u verschillende componenten combineert of wanneer u uw model wilt integreren in een bestaande verzameling of diorama.</p>
+
+                <p>Populaire schalen voor truckmodelbouw zijn onder andere 1:24, 1:50, en 1:87 (H0). Elke schaal heeft zijn eigen voordelen: grotere schalen bieden meer detaillering, terwijl kleinere schalen ruimtebesparend zijn en uitgebreidere scenario's mogelijk maken.</p>
+
+                <div class="tool-container">
+                    <h2>Schaalcalculator Tool</h2>
+                    <div class="tool-form">
+                        <div class="form-group">
+                            <label for="calc-type">Berekeningstype:</label>
+                            <select id="calc-type" onchange="toggleCalculatorMode()">
+                                <option value="real-to-model">Werkelijk naar Model</option>
+                                <option value="model-to-real">Model naar Werkelijk</option>
+                                <option value="scale-finder">Schaal Bepalen</option>
+                            </select>
+                        </div>
+
+                        <div id="real-to-model-section">
+                            <div class="form-group">
+                                <label for="real-size">Werkelijke Afmeting (cm):</label>
+                                <input type="number" id="real-size" step="0.01" placeholder="Bijv. 1800">
+                            </div>
+                            <div class="form-group">
+                                <label for="scale-ratio">Schaal (1:X):</label>
+                                <select id="scale-ratio">
+                                    <option value="24">1:24</option>
+                                    <option value="32">1:32</option>
+                                    <option value="43">1:43</option>
+                                    <option value="50">1:50</option>
+                                    <option value="64">1:64</option>
+                                    <option value="87">1:87 (H0)</option>
+                                    <option value="160">1:160 (N)</option>
+                                    <option value="custom">Aangepast</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="custom-scale-group" style="display:none;">
+                                <label for="custom-scale">Aangepaste Schaal (1:X):</label>
+                                <input type="number" id="custom-scale" step="1" placeholder="Bijv. 48">
+                            </div>
+                        </div>
+
+                        <div id="model-to-real-section" style="display:none;">
+                            <div class="form-group">
+                                <label for="model-size">Model Afmeting (cm):</label>
+                                <input type="number" id="model-size" step="0.01" placeholder="Bijv. 36">
+                            </div>
+                            <div class="form-group">
+                                <label for="scale-ratio2">Schaal (1:X):</label>
+                                <select id="scale-ratio2">
+                                    <option value="24">1:24</option>
+                                    <option value="32">1:32</option>
+                                    <option value="43">1:43</option>
+                                    <option value="50">1:50</option>
+                                    <option value="64">1:64</option>
+                                    <option value="87">1:87 (H0)</option>
+                                    <option value="160">1:160 (N)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="scale-finder-section" style="display:none;">
+                            <div class="form-group">
+                                <label for="real-size-finder">Werkelijke Afmeting (cm):</label>
+                                <input type="number" id="real-size-finder" step="0.01" placeholder="Bijv. 1800">
+                            </div>
+                            <div class="form-group">
+                                <label for="model-size-finder">Model Afmeting (cm):</label>
+                                <input type="number" id="model-size-finder" step="0.01" placeholder="Bijv. 36">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculateScale()">Bereken</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Resultaat</h3>
+                        <div id="result-content"></div>
+                    </div>
+                </div>
+
+                <h2>Veelvoorkomende Truck Afmetingen</h2>
+                <p>Ter referentie vindt u hier enkele standaard afmetingen van populaire trucks:</p>
+                <ul>
+                    <li><strong>DAF XF:</strong> Lengte: 6000mm, Breedte: 2490mm, Hoogte: 3950mm</li>
+                    <li><strong>Scania R-serie:</strong> Lengte: 6080mm, Breedte: 2550mm, Hoogte: 3800mm</li>
+                    <li><strong>Mercedes Actros:</strong> Lengte: 5905mm, Breedte: 2500mm, Hoogte: 3965mm</li>
+                    <li><strong>Volvo FH:</strong> Lengte: 6085mm, Breedte: 2495mm, Hoogte: 3900mm</li>
+                    <li><strong>MAN TGX:</strong> Lengte: 6095mm, Breedte: 2440mm, Hoogte: 3935mm</li>
+                </ul>
+
+                <h2>Tips voor Nauwkeurig Werken</h2>
+                <p>Voor optimale resultaten bij het gebruik van deze calculator en het bouwen van uw model:</p>
+                <ul>
+                    <li>Meet altijd tweemaal voordat u begint met snijden of bewerken</li>
+                    <li>Gebruik een digitale schuifmaat voor precieze metingen</li>
+                    <li>Houd rekening met de dikte van materialen bij het berekenen van totale afmetingen</li>
+                    <li>Documenteer uw berekeningen voor toekomstige referentie</li>
+                    <li>Controleer de schaal van accessoires en figuren voordat u ze toevoegt</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <ul>
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        document.getElementById('scale-ratio').addEventListener('change', function() {
+            const customGroup = document.getElementById('custom-scale-group');
+            if (this.value === 'custom') {
+                customGroup.style.display = 'block';
+            } else {
+                customGroup.style.display = 'none';
+            }
+        });
+
+        function toggleCalculatorMode() {
+            const mode = document.getElementById('calc-type').value;
+            document.getElementById('real-to-model-section').style.display = 'none';
+            document.getElementById('model-to-real-section').style.display = 'none';
+            document.getElementById('scale-finder-section').style.display = 'none';
+
+            if (mode === 'real-to-model') {
+                document.getElementById('real-to-model-section').style.display = 'block';
+            } else if (mode === 'model-to-real') {
+                document.getElementById('model-to-real-section').style.display = 'block';
+            } else if (mode === 'scale-finder') {
+                document.getElementById('scale-finder-section').style.display = 'block';
+            }
+
+            document.getElementById('result').style.display = 'none';
+        }
+
+        function calculateScale() {
+            clearErrors();
+            const mode = document.getElementById('calc-type').value;
+            let result = '';
+
+            if (mode === 'real-to-model') {
+                const realSize = parseFloatNL(document.getElementById('real-size').value);
+                const scaleSelect = document.getElementById('scale-ratio').value;
+                let scale;
+
+                if (scaleSelect === 'custom') {
+                    scale = parseFloat(document.getElementById('custom-scale').value);
+                } else {
+                    scale = parseFloat(scaleSelect);
+                }
+
+                if (isNaN(realSize) || realSize <= 0) {
+                    showError('real-size', 'Voer een geldige afmeting in');
+                    return;
+                }
+
+                if (isNaN(scale) || scale <= 0) {
+                    showError('custom-scale', 'Voer een geldige schaal in');
+                    return;
+                }
+
+                const modelSize = realSize / scale;
+                result = `<p><strong>Werkelijke afmeting:</strong> ${formatNumber(realSize)} cm</p>`;
+                result += `<p><strong>Schaal:</strong> 1:${scale}</p>`;
+                result += `<p><strong>Model afmeting:</strong> ${formatNumber(modelSize)} cm</p>`;
+                result += `<p><strong>Model afmeting:</strong> ${formatNumber(modelSize * 10)} mm</p>`;
+
+            } else if (mode === 'model-to-real') {
+                const modelSize = parseFloatNL(document.getElementById('model-size').value);
+                const scale = parseFloat(document.getElementById('scale-ratio2').value);
+
+                if (isNaN(modelSize) || modelSize <= 0) {
+                    showError('model-size', 'Voer een geldige afmeting in');
+                    return;
+                }
+
+                const realSize = modelSize * scale;
+                result = `<p><strong>Model afmeting:</strong> ${formatNumber(modelSize)} cm</p>`;
+                result += `<p><strong>Schaal:</strong> 1:${scale}</p>`;
+                result += `<p><strong>Werkelijke afmeting:</strong> ${formatNumber(realSize)} cm</p>`;
+                result += `<p><strong>Werkelijke afmeting:</strong> ${formatNumber(realSize / 100)} m</p>`;
+
+            } else if (mode === 'scale-finder') {
+                const realSize = parseFloatNL(document.getElementById('real-size-finder').value);
+                const modelSize = parseFloatNL(document.getElementById('model-size-finder').value);
+
+                if (isNaN(realSize) || realSize <= 0) {
+                    showError('real-size-finder', 'Voer een geldige afmeting in');
+                    return;
+                }
+
+                if (isNaN(modelSize) || modelSize <= 0) {
+                    showError('model-size-finder', 'Voer een geldige afmeting in');
+                    return;
+                }
+
+                const scale = realSize / modelSize;
+                result = `<p><strong>Werkelijke afmeting:</strong> ${formatNumber(realSize)} cm</p>`;
+                result += `<p><strong>Model afmeting:</strong> ${formatNumber(modelSize)} cm</p>`;
+                result += `<p><strong>Berekende schaal:</strong> 1:${formatNumber(scale, 1)}</p>`;
+
+                // Suggestie voor dichtstbijzijnde standaard schaal
+                const standardScales = [24, 32, 43, 50, 64, 87, 160];
+                let closest = standardScales[0];
+                let minDiff = Math.abs(scale - standardScales[0]);
+
+                for (let i = 1; i < standardScales.length; i++) {
+                    const diff = Math.abs(scale - standardScales[i]);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closest = standardScales[i];
+                    }
+                }
+
+                result += `<p><strong>Dichtstbijzijnde standaard schaal:</strong> 1:${closest}</p>`;
+            }
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

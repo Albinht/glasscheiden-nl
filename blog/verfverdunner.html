@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Verfverdunner calculator voor truckmodelbouw - Bereken exacte verdunningsverhoudingen voor verschillende verftypes">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Verfverdunner Calculator - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>Verfverdunner</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Verfverdunner Verhoudingen Calculator</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Technieken | December 2024
+                </div>
+
+                <p>Het correct verdunnen van modelverf is cruciaal voor een professioneel eindresultaat. Te dikke verf geeft een oneffen oppervlak, terwijl te dunne verf onvoldoende dekking biedt. Deze calculator helpt u de perfecte verdunningsverhouding te bepalen voor elk verftype en elke applicatiemethode.</p>
+
+                <h2>Het Belang van Juiste Verdunning</h2>
+                <p>Bij het schilderen van truckmodellen is de verfconsistentie bepalend voor het eindresultaat. Verschillende applicatiemethoden vereisen verschillende verdunningsverhoudingen. Een airbrush heeft bijvoorbeeld een dunnere consistentie nodig dan een penseel, terwijl voor drybrushing juist dikkere verf gewenst is.</p>
+
+                <p>De juiste verdunning voorkomt ook veel voorkomende problemen zoals het verstoppen van de airbrush, zichtbare penseelstrepen, of het verlies van fijne details door te dikke verflagen.</p>
+
+                <div class="tool-container">
+                    <h2>Verfverdunner Calculator</h2>
+                    <div class="tool-form">
+                        <div class="form-group">
+                            <label for="paint-type">Verftype:</label>
+                            <select id="paint-type">
+                                <option value="acrylic">Acrylverf</option>
+                                <option value="enamel">Email/Enamel</option>
+                                <option value="lacquer">Lak/Lacquer</option>
+                                <option value="oil">Olieverf</option>
+                                <option value="water">Waterverf</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="application-method">Applicatiemethode:</label>
+                            <select id="application-method" onchange="updateRatioRecommendation()">
+                                <option value="airbrush-fine">Airbrush - Fijne Details</option>
+                                <option value="airbrush-base">Airbrush - Basislaag</option>
+                                <option value="airbrush-primer">Airbrush - Primer</option>
+                                <option value="brush-detail">Penseel - Details</option>
+                                <option value="brush-base">Penseel - Basislaag</option>
+                                <option value="brush-dry">Drybrushing</option>
+                                <option value="wash">Wash/Glaze</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paint-amount">Hoeveelheid verf (ml):</label>
+                            <input type="number" id="paint-amount" step="0.1" placeholder="Bijv. 10">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ratio-recommendation">Aanbevolen verhouding:</label>
+                            <input type="text" id="ratio-recommendation" readonly value="1:1 (Verf:Verdunner)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custom-ratio">Aangepaste verhouding gebruiken:</label>
+                            <input type="checkbox" id="custom-ratio" onchange="toggleCustomRatio()">
+                        </div>
+
+                        <div id="custom-ratio-section" style="display:none;">
+                            <div class="form-group">
+                                <label for="paint-parts">Delen verf:</label>
+                                <input type="number" id="paint-parts" value="1" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="thinner-parts">Delen verdunner:</label>
+                                <input type="number" id="thinner-parts" value="1" min="0">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculateThinner()">Bereken Verdunning</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Verdunningsresultaat</h3>
+                        <div id="result-content"></div>
+                        <button type="button" class="btn-secondary" onclick="saveMixture()">Bewaar Mengsel</button>
+                    </div>
+
+                    <div id="saved-mixtures" style="display:none;">
+                        <h3>Opgeslagen Mengsels</h3>
+                        <div id="saved-list"></div>
+                    </div>
+                </div>
+
+                <h2>Verdunner Types per Verfsoort</h2>
+                <ul>
+                    <li><strong>Acrylverf:</strong> Water, acryl medium, acryl verdunner, isopropanol (70%)</li>
+                    <li><strong>Email/Enamel:</strong> Terpentine, white spirit, enamel verdunner</li>
+                    <li><strong>Lak/Lacquer:</strong> Lacquer verdunner, aceton (voorzichtig gebruiken)</li>
+                    <li><strong>Olieverf:</strong> Terpentine, lijnzaadolie, white spirit</li>
+                    <li><strong>Waterverf:</strong> Gedestilleerd water</li>
+                </ul>
+
+                <h2>Professionele Tips</h2>
+                <p>Voor optimale resultaten bij het verdunnen van verf:</p>
+                <ul>
+                    <li>Voeg verdunner altijd geleidelijk toe en test de consistentie regelmatig</li>
+                    <li>Gebruik een mengstokje of oude penseel om goed te mengen</li>
+                    <li>Test de verdunde verf eerst op een proefstukje</li>
+                    <li>Bewaar verdunde verf in afgesloten potjes met label</li>
+                    <li>Gebruik voor airbrush altijd een zeef of filter</li>
+                    <li>Houd rekening met de omgevingstemperatuur - warmte versnelt het drogen</li>
+                    <li>Noteer succesvolle verhoudingen voor toekomstig gebruik</li>
+                </ul>
+
+                <h2>Viscositeit Test</h2>
+                <p>Een eenvoudige methode om de juiste viscositeit te controleren:</p>
+                <ol>
+                    <li>Doop een roerstokje in de verdunde verf</li>
+                    <li>Houd het stokje omhoog en observeer hoe de verf eraf druppelt</li>
+                    <li>Voor airbrush: verf moet als melk vloeien</li>
+                    <li>Voor penseel: verf moet als room vloeien</li>
+                    <li>Voor drybrushing: verf moet nauwelijks vloeien</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <ul>
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        const ratioRecommendations = {
+            'airbrush-fine': '1:2',
+            'airbrush-base': '1:1',
+            'airbrush-primer': '2:1',
+            'brush-detail': '3:1',
+            'brush-base': '2:1',
+            'brush-dry': '0:0',
+            'wash': '1:4'
+        };
+
+        let savedMixtures = JSON.parse(localStorage.getItem('paintMixtures') || '[]');
+
+        function updateRatioRecommendation() {
+            const method = document.getElementById('application-method').value;
+            const ratio = ratioRecommendations[method];
+            document.getElementById('ratio-recommendation').value = ratio === '0:0' ? 'Geen verdunning nodig' : `${ratio} (Verf:Verdunner)`;
+        }
+
+        function toggleCustomRatio() {
+            const isCustom = document.getElementById('custom-ratio').checked;
+            document.getElementById('custom-ratio-section').style.display = isCustom ? 'block' : 'none';
+        }
+
+        function calculateThinner() {
+            clearErrors();
+            const paintAmount = parseFloatNL(document.getElementById('paint-amount').value);
+
+            if (isNaN(paintAmount) || paintAmount <= 0) {
+                showError('paint-amount', 'Voer een geldige hoeveelheid in');
+                return;
+            }
+
+            let paintParts, thinnerParts;
+
+            if (document.getElementById('custom-ratio').checked) {
+                paintParts = parseInt(document.getElementById('paint-parts').value);
+                thinnerParts = parseInt(document.getElementById('thinner-parts').value);
+            } else {
+                const method = document.getElementById('application-method').value;
+                const ratio = ratioRecommendations[method].split(':');
+                paintParts = parseInt(ratio[0]);
+                thinnerParts = parseInt(ratio[1]);
+            }
+
+            const thinnerAmount = (paintAmount / paintParts) * thinnerParts;
+            const totalAmount = paintAmount + thinnerAmount;
+            const paintPercentage = (paintAmount / totalAmount) * 100;
+            const thinnerPercentage = (thinnerAmount / totalAmount) * 100;
+
+            let result = `<p><strong>Verf hoeveelheid:</strong> ${formatNumber(paintAmount)} ml</p>`;
+            result += `<p><strong>Verdunner hoeveelheid:</strong> ${formatNumber(thinnerAmount)} ml</p>`;
+            result += `<p><strong>Totale hoeveelheid:</strong> ${formatNumber(totalAmount)} ml</p>`;
+            result += `<p><strong>Verhouding:</strong> ${paintParts}:${thinnerParts}</p>`;
+            result += `<p><strong>Percentages:</strong> ${formatNumber(paintPercentage, 0)}% verf, ${formatNumber(thinnerPercentage, 0)}% verdunner</p>`;
+
+            const paintType = document.getElementById('paint-type').value;
+            const method = document.getElementById('application-method').value;
+
+            result += `<hr><p><em>Voor ${document.getElementById('paint-type').options[document.getElementById('paint-type').selectedIndex].text} met ${document.getElementById('application-method').options[document.getElementById('application-method').selectedIndex].text}</em></p>`;
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+
+            // Store last calculation
+            window.lastMixture = {
+                paintType,
+                method,
+                paintAmount,
+                thinnerAmount,
+                ratio: `${paintParts}:${thinnerParts}`,
+                date: new Date().toLocaleDateString('nl-NL')
+            };
+        }
+
+        function saveMixture() {
+            if (!window.lastMixture) return;
+
+            const name = prompt('Geef dit mengsel een naam:');
+            if (!name) return;
+
+            savedMixtures.push({
+                ...window.lastMixture,
+                name
+            });
+
+            localStorage.setItem('paintMixtures', JSON.stringify(savedMixtures));
+            displaySavedMixtures();
+        }
+
+        function displaySavedMixtures() {
+            if (savedMixtures.length === 0) return;
+
+            let html = '<ul>';
+            savedMixtures.forEach((mix, index) => {
+                html += `<li>
+                    <strong>${mix.name}</strong> -
+                    ${mix.ratio} -
+                    ${formatNumber(mix.paintAmount)}ml verf + ${formatNumber(mix.thinnerAmount)}ml verdunner
+                    <button onclick="deleteMixture(${index})" style="margin-left: 10px;">Verwijder</button>
+                </li>`;
+            });
+            html += '</ul>';
+
+            document.getElementById('saved-list').innerHTML = html;
+            document.getElementById('saved-mixtures').style.display = 'block';
+        }
+
+        function deleteMixture(index) {
+            savedMixtures.splice(index, 1);
+            localStorage.setItem('paintMixtures', JSON.stringify(savedMixtures));
+            displaySavedMixtures();
+
+            if (savedMixtures.length === 0) {
+                document.getElementById('saved-mixtures').style.display = 'none';
+            }
+        }
+
+        // Load saved mixtures on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySavedMixtures();
+            updateRatioRecommendation();
+        });
+    </script>
+</body>
+</html>
