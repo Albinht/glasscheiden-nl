@@ -19,7 +19,7 @@ export default function LinkPartners() {
       category: 'Diamond Painting',
       links: [
         {
-          text: 'Diamond paintings kopen',
+          text: 'Diamondpaintings Kopen',
           url: 'https://diamondpaintingwinkel.com',
           description: 'Diamond painting winkel'
         }
@@ -42,6 +42,31 @@ export default function LinkPartners() {
           text: 'Barnevelds Dagblad',
           url: 'https://barneveldsdagblad.nl',
           description: 'Lokaal nieuws Barneveld'
+        }
+      ]
+    },
+    {
+      category: 'Zakelijke Diensten',
+      links: [
+        {
+          text: 'Administratie kantoor barneveld',
+          url: 'https://bia-finance.nl',
+          description: 'BIA Finance'
+        },
+        {
+          text: '3pl texas',
+          url: 'https://shipsquared.com',
+          description: 'ShipSquared'
+        }
+      ]
+    },
+    {
+      category: 'Knutselen',
+      links: [
+        {
+          text: 'Jill rocket knutselboek',
+          url: 'https://jillrocket.nl',
+          description: 'Jill Rocket'
         }
       ]
     }
