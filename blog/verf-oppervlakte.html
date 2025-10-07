@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Verf oppervlakte calculator voor truckmodelbouw - Bereken hoeveel verf u nodig heeft voor uw project">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Verf Oppervlakte Calculator - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>verf-oppervlakte</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Verf Oppervlakte Calculator</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Technieken | December 2024
+                </div>
+
+                <p>Voorkom verspilling en voorkom tekorten met deze professionele verf calculator. Bereken exact hoeveel verf u nodig heeft voor uw truckmodel project, rekening houdend met schaal, applicatiemethode en aantal lagen. Essentieel voor budgettering en het bestellen van de juiste hoeveelheden.</p>
+
+                <h2>Het Belang van Juiste Verfhoeveelheden</h2>
+                <p>Te weinig verf betekent onderbroken werk en mogelijk kleurverschillen bij nabestelling. Te veel verf is verspilling van geld en opslag ruimte. Deze calculator helpt u de perfecte balans te vinden, rekening houdend met alle relevante factoren zoals dekking, aantal lagen en applicatiemethode.</p>
+
+                <div class="tool-container">
+                    <h2>Verf Hoeveelheid Calculator</h2>
+                    <div class="tool-form">
+                        <h3>Model Specificaties</h3>
+                        <div class="form-group">
+                            <label for="truck-type">Type Truck:</label>
+                            <select id="truck-type" onchange="updateSurfaceEstimate()">
+                                <option value="tractor">Trekker</option>
+                                <option value="tractor-trailer">Trekker + Oplegger</option>
+                                <option value="rigid">Bakwagen</option>
+                                <option value="tanker">Tankwagen</option>
+                                <option value="dumper">Kipper</option>
+                                <option value="custom">Aangepaste afmetingen</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model-scale">Schaal:</label>
+                            <select id="model-scale" onchange="updateSurfaceEstimate()">
+                                <option value="24">1:24</option>
+                                <option value="32">1:32</option>
+                                <option value="43">1:43</option>
+                                <option value="50">1:50</option>
+                                <option value="64">1:64</option>
+                                <option value="87">1:87 (H0)</option>
+                            </select>
+                        </div>
+
+                        <div id="custom-dimensions" style="display:none;">
+                            <h4>Aangepaste Afmetingen (cm)</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                                <input type="number" id="custom-length" placeholder="Lengte" step="0.1">
+                                <input type="number" id="custom-width" placeholder="Breedte" step="0.1">
+                                <input type="number" id="custom-height" placeholder="Hoogte" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estimated-surface">Geschat oppervlak (cm²):</label>
+                            <input type="number" id="estimated-surface" value="500" step="10">
+                        </div>
+
+                        <h3>Verf Specificaties</h3>
+                        <div class="form-group">
+                            <label for="paint-type">Type Verf:</label>
+                            <select id="paint-type">
+                                <option value="acrylic">Acryl</option>
+                                <option value="enamel">Email/Enamel</option>
+                                <option value="lacquer">Lak</option>
+                                <option value="primer">Primer</option>
+                                <option value="metallic">Metallic</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="application-method">Applicatie Methode:</label>
+                            <select id="application-method">
+                                <option value="brush">Penseel</option>
+                                <option value="airbrush">Airbrush</option>
+                                <option value="spray">Spuitbus</option>
+                                <option value="roller">Roller/Spons</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="num-coats">Aantal Lagen:</label>
+                            <select id="num-coats">
+                                <option value="1">1 laag</option>
+                                <option value="2">2 lagen</option>
+                                <option value="3">3 lagen</option>
+                                <option value="4">4+ lagen</option>
+                            </select>
+                        </div>
+
+                        <h3>Kleuren Planning</h3>
+                        <div id="color-planning">
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <input type="text" id="color-name" placeholder="Kleur naam" style="flex: 2;">
+                                <input type="number" id="color-percentage" placeholder="%" min="0" max="100" style="flex: 1;">
+                                <select id="color-type" style="flex: 1;">
+                                    <option value="base">Basiskleur</option>
+                                    <option value="detail">Detail</option>
+                                    <option value="accent">Accent</option>
+                                </select>
+                                <button type="button" onclick="addColor()" class="btn-primary">Toevoegen</button>
+                            </div>
+
+                            <div id="color-list"></div>
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculatePaint()">Bereken Verf</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Verf Berekening</h3>
+                        <div id="result-content"></div>
+                    </div>
+
+                    <div id="shopping-list" style="display:none; margin-top: 30px;">
+                        <h3>Boodschappenlijst</h3>
+                        <div id="shopping-content"></div>
+                        <button type="button" class="btn-secondary" onclick="exportShoppingList()">Export Lijst</button>
+                    </div>
+
+                    <div id="coverage-reference" style="margin-top: 30px;">
+                        <h3>Dekking Referentie Tabel</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #1a4d2e; color: white;">
+                                    <th style="padding: 10px;">Verftype</th>
+                                    <th style="padding: 10px;">Methode</th>
+                                    <th style="padding: 10px;">Dekking per ml</th>
+                                    <th style="padding: 10px;">Notities</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Acryl</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Penseel</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">8-10 cm²</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Verdund voor betere vloei</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Acryl</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Airbrush</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">15-20 cm²</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">30% verdund</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Email</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Penseel</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">10-12 cm²</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Langzame droging</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Primer</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Spuitbus</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">25-30 cm²</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Per ml equivalent</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Metallic</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Airbrush</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">12-15 cm²</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Meerdere dunne lagen</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h2>Verf Besparingstips</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li>Gebruik een primer voor betere dekking en minder toplagen</li>
+                    <li>Verdun verf correct voor optimale vloei en dekking</li>
+                    <li>Werk met dunne lagen in plaats van dikke lagen</li>
+                    <li>Gebruik een nat palet om verf vers te houden tijdens werk</li>
+                    <li>Mix alleen de hoeveelheid die u direct nodig heeft</li>
+                    <li>Bewaar restanten luchtdicht voor touch-ups</li>
+                    <li>Investeer in kwaliteitsverf voor betere dekking</li>
+                </ul>
+
+                <h2>Kleurenschema Planning</h2>
+                <p>Bij het plannen van uw kleurenschema, houd rekening met deze verhoudingen:</p>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>Hoofdkleur:</strong> 60-70% van het oppervlak</li>
+                    <li><strong>Secundaire kleur:</strong> 20-30% van het oppervlak</li>
+                    <li><strong>Accent kleuren:</strong> 5-10% van het oppervlak</li>
+                    <li><strong>Details:</strong> < 5% van het oppervlak</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        let colorList = [];
+
+        // Surface area estimates in cm² for 1:24 scale
+        const surfaceEstimates = {
+            'tractor': { '24': 500, '32': 280, '43': 155, '50': 115, '64': 70, '87': 38 },
+            'tractor-trailer': { '24': 900, '32': 505, '43': 280, '50': 205, '64': 125, '87': 68 },
+            'rigid': { '24': 450, '32': 250, '43': 140, '50': 100, '64': 62, '87': 34 },
+            'tanker': { '24': 800, '32': 450, '43': 250, '50': 185, '64': 112, '87': 61 },
+            'dumper': { '24': 600, '32': 335, '43': 185, '50': 135, '64': 83, '87': 45 }
+        };
+
+        // Coverage in cm² per ml
+        const coverageRates = {
+            'acrylic': { 'brush': 9, 'airbrush': 17, 'spray': 25, 'roller': 12 },
+            'enamel': { 'brush': 11, 'airbrush': 18, 'spray': 26, 'roller': 13 },
+            'lacquer': { 'brush': 10, 'airbrush': 19, 'spray': 27, 'roller': 12 },
+            'primer': { 'brush': 8, 'airbrush': 16, 'spray': 28, 'roller': 11 },
+            'metallic': { 'brush': 7, 'airbrush': 13, 'spray': 22, 'roller': 10 }
+        };
+
+        function updateSurfaceEstimate() {
+            const truckType = document.getElementById('truck-type').value;
+            const scale = document.getElementById('model-scale').value;
+
+            if (truckType === 'custom') {
+                document.getElementById('custom-dimensions').style.display = 'block';
+                calculateCustomSurface();
+            } else {
+                document.getElementById('custom-dimensions').style.display = 'none';
+                if (surfaceEstimates[truckType] && surfaceEstimates[truckType][scale]) {
+                    document.getElementById('estimated-surface').value = surfaceEstimates[truckType][scale];
+                }
+            }
+        }
+
+        function calculateCustomSurface() {
+            const length = parseFloatNL(document.getElementById('custom-length').value) || 0;
+            const width = parseFloatNL(document.getElementById('custom-width').value) || 0;
+            const height = parseFloatNL(document.getElementById('custom-height').value) || 0;
+
+            if (length > 0 && width > 0 && height > 0) {
+                // Approximate surface area calculation
+                const surface = 2 * (length * width + length * height + width * height);
+                document.getElementById('estimated-surface').value = Math.round(surface);
+            }
+        }
+
+        function addColor() {
+            const name = document.getElementById('color-name').value;
+            const percentage = parseFloat(document.getElementById('color-percentage').value);
+            const type = document.getElementById('color-type').value;
+
+            if (!name || isNaN(percentage) || percentage <= 0) {
+                alert('Vul een kleurnaam en percentage in');
+                return;
+            }
+
+            colorList.push({ name, percentage, type });
+
+            // Clear inputs
+            document.getElementById('color-name').value = '';
+            document.getElementById('color-percentage').value = '';
+
+            updateColorList();
+        }
+
+        function updateColorList() {
+            let html = '<h4>Geplande Kleuren:</h4>';
+            let totalPercentage = 0;
+
+            if (colorList.length === 0) {
+                html += '<p>Geen kleuren toegevoegd</p>';
+            } else {
+                html += '<button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">';
+                colorList.forEach((color, index) => {
+                    totalPercentage += color.percentage;
+                    html += `<li>${color.name} - ${color.percentage}% (${color.type})
+                             <button onclick="removeColor(${index})" style="margin-left: 10px;">Verwijder</button></li>`;
+                });
+                html += '</ul>';
+
+                if (Math.abs(totalPercentage - 100) > 1) {
+                    html += `<p style="color: #ff9800;">⚠ Totaal: ${formatNumber(totalPercentage, 0)}% (moet 100% zijn)</p>`;
+                } else {
+                    html += `<p style="color: #4caf50;">✓ Totaal: ${formatNumber(totalPercentage, 0)}%</p>`;
+                }
+            }
+
+            document.getElementById('color-list').innerHTML = html;
+        }
+
+        function removeColor(index) {
+            colorList.splice(index, 1);
+            updateColorList();
+        }
+
+        function calculatePaint() {
+            const surface = parseFloat(document.getElementById('estimated-surface').value);
+            const paintType = document.getElementById('paint-type').value;
+            const method = document.getElementById('application-method').value;
+            const numCoats = parseInt(document.getElementById('num-coats').value);
+
+            if (!surface || surface <= 0) {
+                alert('Voer een geldig oppervlak in');
+                return;
+            }
+
+            const coverageRate = coverageRates[paintType][method];
+            const totalSurface = surface * numCoats;
+            const baseAmount = totalSurface / coverageRate;
+
+            // Add waste factor
+            let wasteFactor = 1.1; // 10% waste
+            if (method === 'airbrush') wasteFactor = 1.2; // 20% waste for airbrush
+            if (method === 'spray') wasteFactor = 1.25; // 25% waste for spray can
+
+            const totalAmount = baseAmount * wasteFactor;
+
+            let result = `<h4>Totaal Benodigd:</h4>`;
+            result += `<p><strong>Totale verf nodig:</strong> ${formatNumber(totalAmount, 1)} ml</p>`;
+            result += `<p><strong>Te verven oppervlak:</strong> ${formatNumber(surface, 0)} cm²</p>`;
+            result += `<p><strong>Aantal lagen:</strong> ${numCoats}</p>`;
+            result += `<p><strong>Inclusief ${Math.round((wasteFactor - 1) * 100)}% verlies factor</strong></p>`;
+
+            result += `<hr>`;
+
+            if (colorList.length > 0) {
+                result += `<h4>Per Kleur:</h4>`;
+                let shoppingList = [];
+
+                colorList.forEach(color => {
+                    const colorAmount = (totalAmount * color.percentage) / 100;
+                    result += `<p><strong>${color.name}:</strong> ${formatNumber(colorAmount, 1)} ml`;
+
+                    // Calculate bottles needed
+                    const bottleSize = color.type === 'base' ? 17 : 10; // Standard model paint sizes
+                    const bottlesNeeded = Math.ceil(colorAmount / bottleSize);
+                    result += ` (${bottlesNeeded}× ${bottleSize}ml potje)</p>`;
+
+                    shoppingList.push({
+                        name: color.name,
+                        amount: colorAmount,
+                        bottles: bottlesNeeded,
+                        size: bottleSize
+                    });
+                });
+
+                // Generate shopping list
+                generateShoppingList(shoppingList, paintType);
+            }
+
+            result += `<hr>`;
+            result += `<h4>Verfadvies:</h4>`;
+
+            if (method === 'airbrush') {
+                result += `<p>• Verdun de verf met 30-50% verdunner</p>`;
+                result += `<p>• Werk in dunne, overlappende lagen</p>`;
+            } else if (method === 'brush') {
+                result += `<p>• Gebruik kwaliteitspenselen voor beste resultaat</p>`;
+                result += `<p>• Verdun licht voor betere vloei</p>`;
+            } else if (method === 'spray') {
+                result += `<p>• Houd 20-30cm afstand</p>`;
+                result += `<p>• Werk in lichte, snelle bewegingen</p>`;
+            }
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function generateShoppingList(list, paintType) {
+            let html = '<table style="width: 100%; border-collapse: collapse;">';
+            html += '<thead><tr style="background: #1a4d2e; color: white;">';
+            html += '<th style="padding: 10px;">Kleur</th>';
+            html += '<th style="padding: 10px;">Benodigd</th>';
+            html += '<th style="padding: 10px;">Te kopen</th>';
+            html += '<th style="padding: 10px;">Geschatte prijs</th>';
+            html += '</tr></thead><tbody>';
+
+            let totalCost = 0;
+
+            list.forEach(item => {
+                const price = item.size === 17 ? 3.50 : 2.50; // Estimated prices
+                const itemCost = item.bottles * price;
+                totalCost += itemCost;
+
+                html += '<tr>';
+                html += `<td style="padding: 10px; border: 1px solid #ddd;">${item.name}</td>`;
+                html += `<td style="padding: 10px; border: 1px solid #ddd;">${formatNumber(item.amount, 1)} ml</td>`;
+                html += `<td style="padding: 10px; border: 1px solid #ddd;">${item.bottles}× ${item.size}ml</td>`;
+                html += `<td style="padding: 10px; border: 1px solid #ddd;">€ ${formatNumber(itemCost)}</td>`;
+                html += '</tr>';
+            });
+
+            // Add extras
+            html += '<tr>';
+            html += '<td style="padding: 10px; border: 1px solid #ddd;">Verdunner</td>';
+            html += '<td style="padding: 10px; border: 1px solid #ddd;">-</td>';
+            html += '<td style="padding: 10px; border: 1px solid #ddd;">1× 30ml</td>';
+            html += '<td style="padding: 10px; border: 1px solid #ddd;">€ 4,00</td>';
+            html += '</tr>';
+
+            if (paintType === 'metallic') {
+                html += '<tr>';
+                html += '<td style="padding: 10px; border: 1px solid #ddd;">Clear coat</td>';
+                html += '<td style="padding: 10px; border: 1px solid #ddd;">-</td>';
+                html += '<td style="padding: 10px; border: 1px solid #ddd;">1× 17ml</td>';
+                html += '<td style="padding: 10px; border: 1px solid #ddd;">€ 3,50</td>';
+                html += '</tr>';
+                totalCost += 3.50;
+            }
+
+            totalCost += 4.00; // Thinner
+
+            html += '</tbody>';
+            html += '<tfoot><tr style="font-weight: bold;">';
+            html += '<td colspan="3" style="padding: 10px; border: 1px solid #ddd;">Totaal:</td>';
+            html += `<td style="padding: 10px; border: 1px solid #ddd;">€ ${formatNumber(totalCost)}</td>`;
+            html += '</tr></tfoot>';
+            html += '</table>';
+
+            document.getElementById('shopping-content').innerHTML = html;
+            document.getElementById('shopping-list').style.display = 'block';
+        }
+
+        function exportShoppingList() {
+            let csv = 'Product,Hoeveelheid,Prijs\n';
+
+            colorList.forEach(color => {
+                const bottleSize = color.type === 'base' ? 17 : 10;
+                const amount = (parseFloat(document.getElementById('estimated-surface').value) *
+                              parseInt(document.getElementById('num-coats').value) * 1.1 *
+                              color.percentage) / 100 /
+                              coverageRates[document.getElementById('paint-type').value][document.getElementById('application-method').value];
+                const bottles = Math.ceil(amount / bottleSize);
+                const price = bottleSize === 17 ? 3.50 : 2.50;
+
+                csv += `"${color.name}","${bottles}x ${bottleSize}ml","€${formatNumber(bottles * price)}"\n`;
+            });
+
+            csv += '"Verdunner","1x 30ml","€4.00"\n';
+
+            exportToCSV(csv, 'verf_boodschappenlijst.csv');
+        }
+
+        // Event listeners for custom dimensions
+        document.addEventListener('DOMContentLoaded', function() {
+            ['custom-length', 'custom-width', 'custom-height'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', calculateCustomSurface);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

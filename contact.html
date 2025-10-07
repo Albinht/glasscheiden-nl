@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Truckmodelbouw.nl - Neem contact op voor vragen over truckmodelbouw">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Contact - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="over.html">Over Ons</a></li>
+                    <li><a href="adverteren.html">Adverteren</a></li>
+                    <li class="nav-active"><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="index.html">Home</a> > <span>Contact</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Contact</h1>
+
+                <p>Heeft u vragen over truckmodelbouw, feedback over onze tools, of suggesties voor nieuwe content? We horen graag van u! Ons team staat klaar om u te helpen met al uw modelbouwgerelateerde vragen.</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin: 40px 0;">
+                    <div class="tool-container">
+                        <h2>Contactformulier</h2>
+                        <form id="contact-form" class="tool-form" onsubmit="return submitContactForm(event)">
+                            <div class="form-group">
+                                <label for="name">Naam:</label>
+                                <input type="text" id="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">E-mail:</label>
+                                <input type="email" id="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Onderwerp:</label>
+                                <select id="subject" required>
+                                    <option value="">Selecteer een onderwerp</option>
+                                    <option value="question">Algemene vraag</option>
+                                    <option value="feedback">Feedback over website</option>
+                                    <option value="suggestion">Suggestie voor nieuwe content</option>
+                                    <option value="technical">Technische ondersteuning</option>
+                                    <option value="partnership">Samenwerking</option>
+                                    <option value="other">Anders</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Bericht:</label>
+                                <textarea id="message" rows="6" required placeholder="Beschrijf uw vraag of opmerking in detail..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="experience">Uw ervaringsniveau:</label>
+                                <select id="experience">
+                                    <option value="">Optioneel</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Gemiddeld</option>
+                                    <option value="advanced">Gevorderd</option>
+                                    <option value="professional">Professioneel</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn-primary">Verstuur Bericht</button>
+                        </form>
+
+                        <div id="form-result" style="display:none; margin-top: 20px;"></div>
+                    </div>
+
+                    <div>
+                        <h2>Veelgestelde Vragen</h2>
+
+                        <div class="faq-item" style="margin-bottom: 25px;">
+                            <h3 style="color: #1a4d2e; margin-bottom: 10px;">Hoe nauwkeurig zijn de calculators?</h3>
+                            <p>Onze calculators zijn gebaseerd op meer dan 20 jaar praktijkervaring en zijn getest op honderden projecten. Ze bieden betrouwbare schattingen met een typische nauwkeurigheid van 90-95%.</p>
+                        </div>
+
+                        <div class="faq-item" style="margin-bottom: 25px;">
+                            <h3 style="color: #1a4d2e; margin-bottom: 10px;">Kan ik suggesties doen voor nieuwe tools?</h3>
+                            <p>Absoluut! We waarderen feedback van onze gebruikers enorm. Stuur uw ideeën via het contactformulier en we bekijken of we ze kunnen implementeren.</p>
+                        </div>
+
+                        <div class="faq-item" style="margin-bottom: 25px;">
+                            <h3 style="color: #1a4d2e; margin-bottom: 10px;">Bieden jullie persoonlijk advies?</h3>
+                            <p>Voor specifieke projectvragen geven we graag advies. Beschrijf uw project zo gedetailleerd mogelijk in het contactformulier voor het beste advies.</p>
+                        </div>
+
+                        <div class="faq-item" style="margin-bottom: 25px;">
+                            <h3 style="color: #1a4d2e; margin-bottom: 10px;">Zijn de tools gratis te gebruiken?</h3>
+                            <p>Ja, alle tools en calculators op onze website zijn volledig gratis te gebruiken. We geloven in het delen van kennis binnen de modelbouwgemeenschap.</p>
+                        </div>
+
+                        <div class="faq-item" style="margin-bottom: 25px;">
+                            <h3 style="color: #1a4d2e; margin-bottom: 10px;">Hoe vaak wordt de content bijgewerkt?</h3>
+                            <p>We updaten onze content regelmatig op basis van nieuwe technieken, materialen en feedback van gebruikers. Belangrijke updates worden aangekondigd op de homepage.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-container" style="margin-top: 40px;">
+                    <h2>Response Tijden</h2>
+                    <p>We streven ernaar alle berichten binnen de volgende tijden te beantwoorden:</p>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><strong>Algemene vragen:</strong> Binnen 2-3 werkdagen</li>
+                        <li><strong>Technische problemen:</strong> Binnen 1-2 werkdagen</li>
+                        <li><strong>Samenwerkingsvoorstellen:</strong> Binnen 5 werkdagen</li>
+                        <li><strong>Dringende zaken:</strong> Binnen 24 uur (vermeld dit in uw bericht)</li>
+                    </ul>
+
+                    <p style="margin-top: 20px;"><strong>Let op:</strong> In drukke perioden kunnen response tijden iets langer zijn. We doen ons best om alle berichten zo snel mogelijk te beantwoorden.</p>
+                </div>
+
+                <div class="tool-container" style="margin-top: 40px;">
+                    <h2>Privacy en Gegevensverwerking</h2>
+                    <p>Wanneer u contact met ons opneemt, verwerken we uw gegevens uitsluitend voor het beantwoorden van uw vraag. Uw informatie wordt niet gedeeld met derden en wordt na afhandeling van uw verzoek veilig bewaard conform ons <a href="privacy.html">privacybeleid</a>.</p>
+
+                    <p>Door het contactformulier te versturen gaat u akkoord met onze voorwaarden voor gegevensverwerking.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="privacy.html">Privacybeleid</a></li>
+                        <li><a href="cookies.html">Cookie Beleid</a></li>
+                        <li><a href="adverteren.html">Adverteren</a></li>
+                        <li class="nav-active"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        function submitContactForm(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const experience = document.getElementById('experience').value;
+
+            // Simulate form submission
+            const resultDiv = document.getElementById('form-result');
+            resultDiv.innerHTML = `
+                <div class="result-box">
+                    <h3 style="color: #4caf50;">Bericht Verzonden</h3>
+                    <p>Bedankt voor uw bericht, ${name}. We hebben uw verzoek ontvangen en zullen zo spoedig mogelijk reageren op ${email}.</p>
+                    <p><strong>Onderwerp:</strong> ${document.querySelector('#subject option:checked').textContent}</p>
+                    <p>Verwachte responstijd: ${getResponseTime(subject)}</p>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+
+            // Clear form
+            document.getElementById('contact-form').reset();
+
+            return false;
+        }
+
+        function getResponseTime(subject) {
+            switch(subject) {
+                case 'technical': return '1-2 werkdagen';
+                case 'question': return '2-3 werkdagen';
+                case 'partnership': return '5 werkdagen';
+                default: return '2-3 werkdagen';
+            }
+        }
+    </script>
+</body>
+</html>

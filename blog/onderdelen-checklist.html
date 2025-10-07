@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactieve onderdelen checklist voor truckmodelbouw projecten - Houd overzicht over alle benodigde onderdelen">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Onderdelen Checklist Tool - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>onderdelen-checklist</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Interactieve Onderdelen Checklist</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Organisatie | December 2024
+                </div>
+
+                <p>Een georganiseerde aanpak is essentieel voor succesvolle truckmodelbouw. Deze interactieve checklist helpt u alle onderdelen systematisch te inventariseren, controleren en organiseren. Voorkom frustratie door missende onderdelen en behoud overzicht tijdens complexe bouwprojecten.</p>
+
+                <h2>Het Belang van Systematische Organisatie</h2>
+                <p>Moderne truckmodellen kunnen uit honderden onderdelen bestaan. Zonder goede organisatie raakt u snel het overzicht kwijt, wat kan leiden tot verloren onderdelen, dubbele aankopen of vertraging in uw project. Deze digitale checklist voorkomt deze problemen en helpt u efficiënt te werken.</p>
+
+                <div class="tool-container">
+                    <h2>Checklist Generator</h2>
+                    <div class="tool-form">
+                        <div class="form-group">
+                            <label for="checklist-name">Checklist Naam:</label>
+                            <input type="text" id="checklist-name" placeholder="Bijv. Scania R730 V8 Project">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model-type">Model Type:</label>
+                            <select id="model-type" onchange="loadTemplate()">
+                                <option value="custom">Aangepaste lijst</option>
+                                <option value="tractor">Trekker</option>
+                                <option value="trailer">Trailer</option>
+                                <option value="rigid">Bakwagen</option>
+                                <option value="special">Speciaal voertuig</option>
+                            </select>
+                        </div>
+
+                        <h3>Onderdeel Toevoegen</h3>
+                        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                            <input type="text" id="part-name" placeholder="Onderdeel naam" style="flex: 2;">
+                            <select id="part-category" style="flex: 1;">
+                                <option value="chassis">Chassis</option>
+                                <option value="cabin">Cabine</option>
+                                <option value="engine">Motor</option>
+                                <option value="wheels">Wielen & Banden</option>
+                                <option value="body">Carrosserie</option>
+                                <option value="interior">Interieur</option>
+                                <option value="details">Details</option>
+                                <option value="decals">Decals</option>
+                                <option value="electronics">Elektronica</option>
+                                <option value="accessories">Accessoires</option>
+                            </select>
+                            <input type="number" id="part-quantity" value="1" min="1" placeholder="Aantal" style="flex: 0.5;">
+                            <button type="button" class="btn-primary" onclick="addPart()">Toevoegen</button>
+                        </div>
+
+                        <button type="button" class="btn-secondary" onclick="addBulkParts()">Bulk Toevoegen</button>
+                        <button type="button" class="btn-secondary" onclick="loadStandardKit()">Standaard Kit Laden</button>
+
+                        <div id="checklist-container" style="margin-top: 30px;">
+                            <h3>Onderdelen Checklist</h3>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="search-parts" placeholder="Zoek onderdelen..." onkeyup="searchParts()" style="width: 300px; padding: 8px;">
+                                <select id="filter-category" onchange="filterParts()" style="padding: 8px; margin-left: 10px;">
+                                    <option value="all">Alle categorieën</option>
+                                    <option value="chassis">Chassis</option>
+                                    <option value="cabin">Cabine</option>
+                                    <option value="engine">Motor</option>
+                                    <option value="wheels">Wielen & Banden</option>
+                                    <option value="body">Carrosserie</option>
+                                    <option value="interior">Interieur</option>
+                                    <option value="details">Details</option>
+                                    <option value="decals">Decals</option>
+                                    <option value="electronics">Elektronica</option>
+                                    <option value="accessories">Accessoires</option>
+                                </select>
+                            </div>
+
+                            <div id="progress-bar" style="background: #f0f0f0; height: 30px; border-radius: 5px; margin-bottom: 20px;">
+                                <div id="progress-fill" style="background: #1a4d2e; height: 100%; border-radius: 5px; width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                    0%
+                                </div>
+                            </div>
+
+                            <div id="checklist-items"></div>
+                        </div>
+
+                        <div style="margin-top: 30px; display: flex; gap: 10px;">
+                            <button type="button" class="btn-primary" onclick="saveChecklist()">Checklist Opslaan</button>
+                            <button type="button" class="btn-secondary" onclick="printChecklist()">Afdrukken</button>
+                            <button type="button" class="btn-secondary" onclick="exportChecklist()">Export CSV</button>
+                            <button type="button" class="btn-secondary" onclick="resetChecklist()">Reset</button>
+                        </div>
+                    </div>
+
+                    <div id="saved-checklists" style="display:none; margin-top: 30px;">
+                        <h3>Opgeslagen Checklists</h3>
+                        <div id="checklists-list"></div>
+                    </div>
+
+                    <div id="statistics" class="result-box" style="display:none; margin-top: 30px;">
+                        <h3>Statistieken</h3>
+                        <div id="stats-content"></div>
+                    </div>
+                </div>
+
+                <h2>Tips voor Effectief Onderdelenbeheer</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li>Sorteer onderdelen direct bij het openen van de kit in kleine bakjes</li>
+                    <li>Label elk bakje met onderdeelnummers</li>
+                    <li>Fotografeer de onderdelen voor documentatie</li>
+                    <li>Bewaar kleine onderdelen in gripzakjes</li>
+                    <li>Gebruik een magneetbak voor metalen onderdelen</li>
+                    <li>Controleer alle onderdelen voordat u begint met bouwen</li>
+                    <li>Markeer gebruikte onderdelen direct in uw checklist</li>
+                </ul>
+
+                <h2>Standaard Onderdelengroepen</h2>
+                <p>De meeste truckmodellen bevatten deze hoofdgroepen:</p>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>Chassis:</strong> Frame, assen, vering, brandstoftanks</li>
+                    <li><strong>Cabine:</strong> Dak, deuren, ruiten, spiegels, bumpers</li>
+                    <li><strong>Motor:</strong> Motorblok, uitlaat, luchtfilter, koeling</li>
+                    <li><strong>Wielen:</strong> Velgen, banden, naafdoppen, spatborden</li>
+                    <li><strong>Interieur:</strong> Dashboard, stoelen, stuur, pedalen</li>
+                    <li><strong>Details:</strong> Verlichting, antennes, claxons, nummerplaten</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        let checklistParts = [];
+        let savedChecklists = JSON.parse(localStorage.getItem('partsChecklists') || '[]');
+
+        function addPart() {
+            const name = document.getElementById('part-name').value;
+            const category = document.getElementById('part-category').value;
+            const quantity = parseInt(document.getElementById('part-quantity').value);
+
+            if (!name || quantity <= 0) {
+                alert('Vul een geldige onderdeelnaam en aantal in');
+                return;
+            }
+
+            // Check for duplicates
+            const existing = checklistParts.find(p => p.name.toLowerCase() === name.toLowerCase());
+            if (existing) {
+                if (confirm(`"${name}" bestaat al. Wilt u het aantal bijwerken?`)) {
+                    existing.quantity += quantity;
+                    updateChecklist();
+                }
+                return;
+            }
+
+            checklistParts.push({
+                id: Date.now(),
+                name,
+                category,
+                quantity,
+                checked: 0,
+                notes: ''
+            });
+
+            // Clear inputs
+            document.getElementById('part-name').value = '';
+            document.getElementById('part-quantity').value = '1';
+
+            updateChecklist();
+            updateStatistics();
+        }
+
+        function addBulkParts() {
+            const bulkText = prompt('Voer onderdelen in (één per regel, optioneel met aantal na komma):\nBijvoorbeeld:\nVoorruit\nSpiegel, 2\nWiel, 4');
+            if (!bulkText) return;
+
+            const lines = bulkText.split('\n');
+            lines.forEach(line => {
+                const parts = line.split(',');
+                const name = parts[0].trim();
+                const quantity = parts[1] ? parseInt(parts[1].trim()) : 1;
+
+                if (name) {
+                    checklistParts.push({
+                        id: Date.now() + Math.random(),
+                        name,
+                        category: 'details',
+                        quantity: quantity || 1,
+                        checked: 0,
+                        notes: ''
+                    });
+                }
+            });
+
+            updateChecklist();
+            updateStatistics();
+        }
+
+        function loadStandardKit() {
+            const standardParts = [
+                { name: 'Chassis frame', category: 'chassis', quantity: 1 },
+                { name: 'Vooras', category: 'chassis', quantity: 1 },
+                { name: 'Achteras', category: 'chassis', quantity: 2 },
+                { name: 'Cabine basis', category: 'cabin', quantity: 1 },
+                { name: 'Deuren', category: 'cabin', quantity: 2 },
+                { name: 'Voorruit', category: 'cabin', quantity: 1 },
+                { name: 'Zijruiten', category: 'cabin', quantity: 2 },
+                { name: 'Motorblok', category: 'engine', quantity: 1 },
+                { name: 'Uitlaat', category: 'engine', quantity: 1 },
+                { name: 'Wielen', category: 'wheels', quantity: 10 },
+                { name: 'Dashboard', category: 'interior', quantity: 1 },
+                { name: 'Stoelen', category: 'interior', quantity: 2 },
+                { name: 'Stuur', category: 'interior', quantity: 1 },
+                { name: 'Spiegels', category: 'details', quantity: 2 },
+                { name: 'Koplampen', category: 'details', quantity: 2 },
+                { name: 'Achterlichten', category: 'details', quantity: 2 }
+            ];
+
+            standardParts.forEach(part => {
+                const existing = checklistParts.find(p => p.name === part.name);
+                if (!existing) {
+                    checklistParts.push({
+                        id: Date.now() + Math.random(),
+                        ...part,
+                        checked: 0,
+                        notes: ''
+                    });
+                }
+            });
+
+            updateChecklist();
+            updateStatistics();
+        }
+
+        function updateChecklist() {
+            const container = document.getElementById('checklist-items');
+            const searchTerm = document.getElementById('search-parts').value.toLowerCase();
+            const filterCategory = document.getElementById('filter-category').value;
+
+            let filteredParts = checklistParts;
+
+            if (searchTerm) {
+                filteredParts = filteredParts.filter(part =>
+                    part.name.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (filterCategory !== 'all') {
+                filteredParts = filteredParts.filter(part =>
+                    part.category === filterCategory
+                );
+            }
+
+            // Group by category
+            const grouped = {};
+            filteredParts.forEach(part => {
+                if (!grouped[part.category]) {
+                    grouped[part.category] = [];
+                }
+                grouped[part.category].push(part);
+            });
+
+            let html = '';
+            Object.entries(grouped).forEach(([category, parts]) => {
+                html += `<h4 style="margin-top: 20px; color: #1a4d2e;">${getCategoryNameParts(category)}</h4>`;
+                html += '<div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 15px;">';
+
+                parts.forEach(part => {
+                    const percentage = part.quantity > 0 ? (part.checked / part.quantity) * 100 : 0;
+                    html += `
+                        <div style="border-bottom: 1px solid #ddd; padding: 10px 0; display: flex; align-items: center; gap: 15px;">
+                            <div style="flex: 3;">
+                                <strong>${part.name}</strong>
+                                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                    <button onclick="decrementPart(${part.id})" style="width: 25px; height: 25px;">-</button>
+                                    <span>${part.checked} / ${part.quantity}</span>
+                                    <button onclick="incrementPart(${part.id})" style="width: 25px; height: 25px;">+</button>
+                                    <div style="width: 100px; height: 10px; background: #e0e0e0; border-radius: 5px;">
+                                        <div style="width: ${percentage}%; height: 100%; background: ${percentage === 100 ? '#4caf50' : '#1a4d2e'}; border-radius: 5px;"></div>
+                                    </div>
+                                    <span style="font-size: 0.9em; color: #666;">${Math.round(percentage)}%</span>
+                                </div>
+                            </div>
+                            <div style="flex: 2;">
+                                <input type="text" placeholder="Notities..." value="${part.notes}" onchange="updateNotes(${part.id}, this.value)" style="width: 100%; padding: 5px;">
+                            </div>
+                            <button onclick="removePart(${part.id})" style="background: #d32f2f; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">X</button>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            container.innerHTML = html || '<p>Geen onderdelen toegevoegd. Begin met het toevoegen van onderdelen aan uw checklist.</p>';
+
+            updateProgress();
+        }
+
+        function getCategoryNameParts(category) {
+            const names = {
+                'chassis': 'Chassis',
+                'cabin': 'Cabine',
+                'engine': 'Motor',
+                'wheels': 'Wielen & Banden',
+                'body': 'Carrosserie',
+                'interior': 'Interieur',
+                'details': 'Details',
+                'decals': 'Decals',
+                'electronics': 'Elektronica',
+                'accessories': 'Accessoires'
+            };
+            return names[category] || category;
+        }
+
+        function incrementPart(id) {
+            const part = checklistParts.find(p => p.id === id);
+            if (part && part.checked < part.quantity) {
+                part.checked++;
+                updateChecklist();
+                updateStatistics();
+            }
+        }
+
+        function decrementPart(id) {
+            const part = checklistParts.find(p => p.id === id);
+            if (part && part.checked > 0) {
+                part.checked--;
+                updateChecklist();
+                updateStatistics();
+            }
+        }
+
+        function updateNotes(id, notes) {
+            const part = checklistParts.find(p => p.id === id);
+            if (part) {
+                part.notes = notes;
+            }
+        }
+
+        function removePart(id) {
+            checklistParts = checklistParts.filter(p => p.id !== id);
+            updateChecklist();
+            updateStatistics();
+        }
+
+        function updateProgress() {
+            const totalParts = checklistParts.reduce((sum, part) => sum + part.quantity, 0);
+            const checkedParts = checklistParts.reduce((sum, part) => sum + part.checked, 0);
+            const percentage = totalParts > 0 ? (checkedParts / totalParts) * 100 : 0;
+
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = Math.round(percentage) + '%';
+
+            if (percentage === 100 && totalParts > 0) {
+                progressFill.style.background = '#4caf50';
+            } else {
+                progressFill.style.background = '#1a4d2e';
+            }
+        }
+
+        function updateStatistics() {
+            if (checklistParts.length === 0) {
+                document.getElementById('statistics').style.display = 'none';
+                return;
+            }
+
+            const totalParts = checklistParts.reduce((sum, part) => sum + part.quantity, 0);
+            const checkedParts = checklistParts.reduce((sum, part) => sum + part.checked, 0);
+            const completedItems = checklistParts.filter(part => part.checked === part.quantity).length;
+
+            const categoryStats = {};
+            checklistParts.forEach(part => {
+                if (!categoryStats[part.category]) {
+                    categoryStats[part.category] = { total: 0, checked: 0 };
+                }
+                categoryStats[part.category].total += part.quantity;
+                categoryStats[part.category].checked += part.checked;
+            });
+
+            let statsHtml = `
+                <p><strong>Totaal onderdelen:</strong> ${totalParts}</p>
+                <p><strong>Gecontroleerd:</strong> ${checkedParts} (${Math.round((checkedParts/totalParts)*100)}%)</p>
+                <p><strong>Voltooide items:</strong> ${completedItems} van ${checklistParts.length}</p>
+                <h4>Per categorie:</h4>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+            `;
+
+            Object.entries(categoryStats).forEach(([category, stats]) => {
+                const percentage = Math.round((stats.checked / stats.total) * 100);
+                statsHtml += `<li>${getCategoryNameParts(category)}: ${stats.checked}/${stats.total} (${percentage}%)</li>`;
+            });
+
+            statsHtml += '</ul>';
+
+            document.getElementById('stats-content').innerHTML = statsHtml;
+            document.getElementById('statistics').style.display = 'block';
+        }
+
+        function searchParts() {
+            updateChecklist();
+        }
+
+        function filterParts() {
+            updateChecklist();
+        }
+
+        function saveChecklist() {
+            const name = document.getElementById('checklist-name').value;
+            if (!name || checklistParts.length === 0) {
+                alert('Voer een naam in en voeg onderdelen toe');
+                return;
+            }
+
+            const checklist = {
+                name,
+                parts: checklistParts,
+                date: new Date().toLocaleDateString('nl-NL'),
+                progress: calculateProgress()
+            };
+
+            savedChecklists.push(checklist);
+            localStorage.setItem('partsChecklists', JSON.stringify(savedChecklists));
+            displaySavedChecklists();
+            alert('Checklist opgeslagen!');
+        }
+
+        function calculateProgress() {
+            const totalParts = checklistParts.reduce((sum, part) => sum + part.quantity, 0);
+            const checkedParts = checklistParts.reduce((sum, part) => sum + part.checked, 0);
+            return totalParts > 0 ? Math.round((checkedParts / totalParts) * 100) : 0;
+        }
+
+        function displaySavedChecklists() {
+            if (savedChecklists.length === 0) return;
+
+            let html = '<button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">';
+            savedChecklists.forEach((checklist, index) => {
+                html += `<li>
+                    <strong>${checklist.name}</strong> -
+                    ${checklist.parts.length} items -
+                    ${checklist.progress}% compleet -
+                    ${checklist.date}
+                    <button onclick="loadChecklist(${index})" style="margin-left: 10px;">Laden</button>
+                    <button onclick="deleteChecklist(${index})" style="margin-left: 5px;">Verwijder</button>
+                </li>`;
+            });
+            html += '</ul>';
+
+            document.getElementById('checklists-list').innerHTML = html;
+            document.getElementById('saved-checklists').style.display = 'block';
+        }
+
+        function loadChecklist(index) {
+            const checklist = savedChecklists[index];
+            document.getElementById('checklist-name').value = checklist.name;
+            checklistParts = [...checklist.parts];
+            updateChecklist();
+            updateStatistics();
+        }
+
+        function deleteChecklist(index) {
+            savedChecklists.splice(index, 1);
+            localStorage.setItem('partsChecklists', JSON.stringify(savedChecklists));
+            displaySavedChecklists();
+
+            if (savedChecklists.length === 0) {
+                document.getElementById('saved-checklists').style.display = 'none';
+            }
+        }
+
+        function printChecklist() {
+            if (checklistParts.length === 0) {
+                alert('Geen onderdelen om af te drukken');
+                return;
+            }
+
+            window.print();
+        }
+
+        function exportChecklist() {
+            if (checklistParts.length === 0) {
+                alert('Geen onderdelen om te exporteren');
+                return;
+            }
+
+            let csv = 'Onderdeel,Categorie,Aantal,Gecontroleerd,Notities\n';
+            checklistParts.forEach(part => {
+                csv += `"${part.name}","${getCategoryNameParts(part.category)}",${part.quantity},${part.checked},"${part.notes}"\n`;
+            });
+
+            exportToCSV(csv, 'onderdelen_checklist.csv');
+        }
+
+        function resetChecklist() {
+            if (confirm('Weet u zeker dat u de checklist wilt resetten?')) {
+                checklistParts = [];
+                updateChecklist();
+                updateStatistics();
+            }
+        }
+
+        // Load saved checklists on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySavedChecklists();
+        });
+    </script>
+</body>
+</html>

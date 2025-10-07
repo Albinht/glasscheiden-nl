@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gewicht schatter voor truckmodellen - Bereken het geschatte gewicht van uw model op basis van materialen en schaal">
+    <meta name="author" content="Jan van der Berg, Expert Modelbouwer">
+    <title>Model Gewicht Schatter - Truckmodelbouw.nl</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Truckmodelbouw.nl</h1>
+            <p class="tagline">Professionele Kennisbank voor Truckmodelbouw</p>
+            <nav>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="nav-active"><a href="../blog.html">Blog</a></li>
+                    <li><a href="../over.html">Over Ons</a></li>
+                    <li><a href="../adverteren.html">Adverteren</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <nav class="breadcrumb">
+            <div class="container">
+                <a href="../index.html">Home</a> > <a href="../blog.html">Blog</a> > <span>gewicht-schatter</span>
+            </div>
+        </nav>
+
+        <section class="page-content">
+            <div class="container">
+                <h1>Model Gewicht Schatter</h1>
+
+                <div class="author-note">
+                    Door Jan van der Berg | Categorie: Technische Tools | December 2024
+                </div>
+
+                <p>Het gewicht van een truckmodel is belangrijk voor transport, opslag en presentatie. Deze professionele tool helpt u het gewicht van uw model te schatten op basis van afmetingen, gebruikte materialen en schaal. Ideaal voor het plannen van vitrinekasteen, verzending of het bepalen van de stabiliteit.</p>
+
+                <h2>Waarom Gewicht Belangrijk Is</h2>
+                <p>Het gewicht van uw model beïnvloedt verschillende aspecten: de sterkte van de benodigde vitrine planken, verzendkosten bij verkoop, de keuze van displaystandaards, en de balans bij bewegende onderdelen. Een goede gewichtsschatting voorkomt verrassingen en helpt bij het maken van de juiste keuzes.</p>
+
+                <div class="tool-container">
+                    <h2>Gewicht Calculator</h2>
+                    <div class="tool-form">
+                        <h3>Model Basisgegevens</h3>
+                        <div class="form-group">
+                            <label for="model-scale">Model Schaal:</label>
+                            <select id="model-scale">
+                                <option value="24">1:24</option>
+                                <option value="32">1:32</option>
+                                <option value="43">1:43</option>
+                                <option value="50">1:50</option>
+                                <option value="64">1:64</option>
+                                <option value="87">1:87 (H0)</option>
+                                <option value="160">1:160 (N)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="model-type">Type Model:</label>
+                            <select id="model-type">
+                                <option value="tractor">Solo Trekker</option>
+                                <option value="tractor-trailer">Trekker met Oplegger</option>
+                                <option value="rigid">Bakwagen</option>
+                                <option value="rigid-trailer">Bakwagen met Aanhanger</option>
+                                <option value="special">Speciaal Voertuig</option>
+                            </select>
+                        </div>
+
+                        <h3>Materialen Samenstelling</h3>
+                        <div class="form-group">
+                            <label for="plastic-percentage">Plastic/Resin (%):</label>
+                            <input type="number" id="plastic-percentage" value="70" min="0" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="metal-percentage">Metaal (%):</label>
+                            <input type="number" id="metal-percentage" value="20" min="0" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rubber-percentage">Rubber (%):</label>
+                            <input type="number" id="rubber-percentage" value="10" min="0" max="100">
+                        </div>
+
+                        <h3>Extra Componenten</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <label><input type="checkbox" id="has-lighting"> LED Verlichting</label>
+                            <label><input type="checkbox" id="has-sound"> Geluidsmodule</label>
+                            <label><input type="checkbox" id="has-motor"> Elektromotor</label>
+                            <label><input type="checkbox" id="has-battery"> Batterij/Accu</label>
+                            <label><input type="checkbox" id="has-metal-chassis"> Volledig metalen chassis</label>
+                            <label><input type="checkbox" id="has-weights"> Extra verzwaring</label>
+                            <label><input type="checkbox" id="has-detailed-engine"> Gedetailleerde motor</label>
+                            <label><input type="checkbox" id="has-hydraulics"> Hydrauliek systeem</label>
+                        </div>
+
+                        <h3>Afmetingen (optioneel voor nauwkeurigheid)</h3>
+                        <div class="form-group">
+                            <label for="model-length">Model Lengte (cm):</label>
+                            <input type="number" id="model-length" step="0.1" placeholder="Optioneel">
+                        </div>
+
+                        <button type="button" class="btn-primary" onclick="calculateWeight()">Bereken Gewicht</button>
+                    </div>
+
+                    <div id="result" class="result-box" style="display:none;">
+                        <h3>Gewichtsschatting</h3>
+                        <div id="result-content"></div>
+                    </div>
+
+                    <div id="weight-comparison" style="margin-top: 30px;">
+                        <h3>Referentie Gewichten</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #1a4d2e; color: white;">
+                                    <th style="padding: 10px;">Model Type</th>
+                                    <th style="padding: 10px;">Schaal</th>
+                                    <th style="padding: 10px;">Materiaal</th>
+                                    <th style="padding: 10px;">Typisch Gewicht</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Trekker</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1:24</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Plastic kit</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">400-600 gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Trekker + Oplegger</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1:24</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Plastic kit</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">800-1200 gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Trekker</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1:50</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Die-cast</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">200-300 gram</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Trekker</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">1:87</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">Plastic</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd;">30-50 gram</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="shipping-calculator" style="margin-top: 30px;">
+                        <h3>Verzending Calculator</h3>
+                        <div class="form-group">
+                            <label for="package-weight">Totaal Pakketgewicht (gram):</label>
+                            <input type="number" id="package-weight" placeholder="Voer gewicht in">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipping-country">Bestemming:</label>
+                            <select id="shipping-country">
+                                <option value="nl">Nederland</option>
+                                <option value="be">België</option>
+                                <option value="de">Duitsland</option>
+                                <option value="eu">Overig EU</option>
+                                <option value="world">Wereld</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-secondary" onclick="calculateShipping()">Bereken Verzendkosten</button>
+                        <div id="shipping-result"></div>
+                    </div>
+                </div>
+
+                <h2>Factoren die Gewicht Beïnvloeden</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li><strong>Schaal:</strong> Kleinere schalen wegen exponentieel minder</li>
+                    <li><strong>Materiaal:</strong> Metaal is 3-4x zwaarder dan plastic</li>
+                    <li><strong>Detaillering:</strong> Extra onderdelen verhogen het gewicht</li>
+                    <li><strong>Elektronica:</strong> Motoren en batterijen voegen significant gewicht toe</li>
+                    <li><strong>Vulling:</strong> Massieve delen vs holle constructies</li>
+                    <li><strong>Afwerking:</strong> Meerdere verflagen kunnen meetbaar gewicht toevoegen</li>
+                </ul>
+
+                <h2>Tips voor Gewichtsbeheer</h2>
+                <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                    <li>Gebruik holle constructies waar mogelijk voor grote modellen</li>
+                    <li>Overweeg lichtgewicht alternatieven voor niet-zichtbare delen</li>
+                    <li>Balanceer gewicht voor stabiliteit bij bewegende modellen</li>
+                    <li>Documenteer het eindgewicht voor toekomstige referentie</li>
+                    <li>Houd rekening met verpakkingsgewicht bij verzending</li>
+                    <li>Test de draagkracht van displayplanken vooraf</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Over Truckmodelbouw.nl</h4>
+                    <p>Professionele kennisbank voor truckmodelbouw enthusiasten en professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Snelle Links</h4>
+                    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+                <ul id="nav-menu">
+                        <li><a href="../privacy.html">Privacybeleid</a></li>
+                        <li><a href="../cookies.html">Cookie Beleid</a></li>
+                        <li><a href="../adverteren.html">Adverteren</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p>Voor vragen en suggesties kunt u contact opnemen via onze <a href="../contact.html">contactpagina</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 truckmodelbouw.nl - Alle rechten voorbehouden</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts.js"></script>
+    <script>
+        // Base weights in grams for 1:24 scale
+        const baseWeights = {
+            'tractor': 500,
+            'tractor-trailer': 1000,
+            'rigid': 450,
+            'rigid-trailer': 900,
+            'special': 550
+        };
+
+        // Material density factors
+        const materialDensity = {
+            'plastic': 1.0,
+            'metal': 3.5,
+            'rubber': 1.2
+        };
+
+        // Component weights in grams
+        const componentWeights = {
+            'has-lighting': 20,
+            'has-sound': 30,
+            'has-motor': 50,
+            'has-battery': 40,
+            'has-metal-chassis': 150,
+            'has-weights': 100,
+            'has-detailed-engine': 25,
+            'has-hydraulics': 35
+        };
+
+        function calculateWeight() {
+            clearErrors();
+
+            const scale = parseFloat(document.getElementById('model-scale').value);
+            const modelType = document.getElementById('model-type').value;
+            const plasticPerc = parseFloat(document.getElementById('plastic-percentage').value) / 100;
+            const metalPerc = parseFloat(document.getElementById('metal-percentage').value) / 100;
+            const rubberPerc = parseFloat(document.getElementById('rubber-percentage').value) / 100;
+
+            // Validate percentages
+            const totalPerc = (plasticPerc + metalPerc + rubberPerc) * 100;
+            if (Math.abs(totalPerc - 100) > 1) {
+                alert(`Materiaal percentages moeten samen 100% zijn (nu: ${formatNumber(totalPerc, 0)}%)`);
+                return;
+            }
+
+            // Calculate base weight adjusted for scale
+            const scaleFactor = Math.pow(24 / scale, 3); // Volume scales with cube of linear dimension
+            let baseWeight = baseWeights[modelType] * scaleFactor;
+
+            // Adjust for material composition
+            const materialFactor = (plasticPerc * materialDensity.plastic) +
+                                  (metalPerc * materialDensity.metal) +
+                                  (rubberPerc * materialDensity.rubber);
+            baseWeight *= materialFactor;
+
+            // Add component weights (scaled down for smaller scales)
+            let componentWeight = 0;
+            const componentScaleFactor = Math.sqrt(24 / scale); // Components scale less dramatically
+
+            Object.keys(componentWeights).forEach(component => {
+                if (document.getElementById(component).checked) {
+                    componentWeight += componentWeights[component] * componentScaleFactor;
+                }
+            });
+
+            const totalWeight = baseWeight + componentWeight;
+
+            // Optional: adjust for actual dimensions if provided
+            const modelLength = parseFloatNL(document.getElementById('model-length').value);
+            let dimensionFactor = 1;
+            if (modelLength && modelLength > 0) {
+                // Assume standard length for scale
+                const expectedLength = 600 / scale; // 600mm real truck / scale
+                dimensionFactor = modelLength / expectedLength;
+                dimensionFactor = Math.pow(dimensionFactor, 2.5); // Not quite cubic due to proportions
+            }
+
+            const finalWeight = totalWeight * dimensionFactor;
+
+            // Generate result
+            let result = `<p><strong>Geschat gewicht:</strong> ${formatNumber(finalWeight, 0)} gram</p>`;
+            result += `<p><strong>Gewichtsbereik:</strong> ${formatNumber(finalWeight * 0.85, 0)} - ${formatNumber(finalWeight * 1.15, 0)} gram</p>`;
+            result += `<hr>`;
+            result += `<h4>Gewichtsopbouw:</h4>`;
+            result += `<p>Basismodel (${modelType}): ${formatNumber(baseWeight, 0)} gram</p>`;
+
+            if (componentWeight > 0) {
+                result += `<p>Extra componenten: ${formatNumber(componentWeight, 0)} gram</p>`;
+            }
+
+            if (dimensionFactor !== 1) {
+                result += `<p>Afmetingscorrectie: ×${formatNumber(dimensionFactor, 2)}</p>`;
+            }
+
+            result += `<hr>`;
+            result += `<h4>Materiaalverdeling:</h4>`;
+            result += `<p>Plastic/Resin: ${formatNumber(finalWeight * plasticPerc / materialFactor, 0)} gram</p>`;
+            result += `<p>Metaal: ${formatNumber(finalWeight * metalPerc * materialDensity.metal / materialFactor, 0)} gram</p>`;
+            result += `<p>Rubber: ${formatNumber(finalWeight * rubberPerc * materialDensity.rubber / materialFactor, 0)} gram</p>`;
+
+            // Display recommendations
+            result += `<hr>`;
+            result += `<h4>Aanbevelingen:</h4>`;
+
+            if (finalWeight > 1500) {
+                result += `<p>⚠ Model is zwaar - gebruik stevige displaystandaard</p>`;
+            }
+
+            if (finalWeight > 500 && scale <= 50) {
+                result += `<p>✓ Geschikt voor verzending als brievenbuspakket (tot 2kg)</p>`;
+            }
+
+            if (metalPerc > 0.5) {
+                result += `<p>✓ Hoog metaalgehalte geeft premium gevoel</p>`;
+            }
+
+            document.getElementById('result-content').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+
+            // Auto-fill shipping calculator
+            document.getElementById('package-weight').value = Math.round(finalWeight + 100); // Add packaging
+        }
+
+        function calculateShipping() {
+            const weight = parseFloatNL(document.getElementById('package-weight').value);
+            const country = document.getElementById('shipping-country').value;
+
+            if (!weight || weight <= 0) {
+                alert('Voer een geldig gewicht in');
+                return;
+            }
+
+            let cost = 0;
+            let service = '';
+
+            // Simplified shipping cost calculation
+            if (country === 'nl') {
+                if (weight <= 350) {
+                    cost = 4.25;
+                    service = 'Brievenbuspakket';
+                } else if (weight <= 2000) {
+                    cost = 6.95;
+                    service = 'Pakket';
+                } else if (weight <= 10000) {
+                    cost = 7.95;
+                    service = 'Pakket';
+                } else {
+                    cost = 13.50;
+                    service = 'Groot pakket';
+                }
+            } else if (country === 'be' || country === 'de') {
+                if (weight <= 2000) {
+                    cost = 13.50;
+                    service = 'Pakket EU';
+                } else {
+                    cost = 18.50;
+                    service = 'Pakket EU+';
+                }
+            } else if (country === 'eu') {
+                cost = 18.50 + (weight / 1000) * 2;
+                service = 'Internationaal EU';
+            } else {
+                cost = 24.50 + (weight / 1000) * 3;
+                service = 'Wereldwijd';
+            }
+
+            let result = `<div class="result-box" style="margin-top: 15px;">`;
+            result += `<p><strong>Pakketgewicht:</strong> ${formatNumber(weight, 0)} gram</p>`;
+            result += `<p><strong>Verzendservice:</strong> ${service}</p>`;
+            result += `<p><strong>Geschatte kosten:</strong> € ${formatNumber(cost)}</p>`;
+            result += `<p style="font-size: 0.9em; color: #666;">*Indicatieve prijzen, check actuele tarieven bij verzender</p>`;
+            result += `</div>`;
+
+            document.getElementById('shipping-result').innerHTML = result;
+        }
+
+        // Initialize material percentage watchers
+        document.addEventListener('DOMContentLoaded', function() {
+            ['plastic-percentage', 'metal-percentage', 'rubber-percentage'].forEach(id => {
+                document.getElementById(id).addEventListener('input', function() {
+                    const plastic = parseFloat(document.getElementById('plastic-percentage').value) || 0;
+                    const metal = parseFloat(document.getElementById('metal-percentage').value) || 0;
+                    const rubber = parseFloat(document.getElementById('rubber-percentage').value) || 0;
+                    const total = plastic + metal + rubber;
+
+                    if (total > 100) {
+                        this.style.borderColor = '#d32f2f';
+                    } else if (total < 100) {
+                        this.style.borderColor = '#ff9800';
+                    } else {
+                        this.style.borderColor = '#4caf50';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
