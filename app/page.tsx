@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import HeroBanner from '@/components/HeroBanner'
+import InfoSection from '@/components/InfoSection'
 import FAQ from '@/components/FAQ'
 import BlogSection from '@/components/BlogSection'
 import SocialSection from '@/components/SocialSection'
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <main>
         <HeroBanner />
+        <InfoSection />
         <FAQ />
         <BlogSection />
         <SocialSection />
