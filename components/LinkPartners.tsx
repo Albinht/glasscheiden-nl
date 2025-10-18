@@ -69,6 +69,16 @@ export default function LinkPartners() {
           description: 'Jill Rocket'
         }
       ]
+    },
+    {
+      category: 'Schoenen',
+      links: [
+        {
+          text: 'barefootschoenen dames',
+          url: 'https://barefootschoenen.nl/collections/dames',
+          description: 'Barefoot schoenen dames'
+        }
+      ]
     }
   ]
 
